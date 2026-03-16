@@ -256,19 +256,46 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
   .profile-popup{width:260px}
 }
 
-/* ── CONTEXT MENU ── */
-.ctx-menu{position:fixed;z-index:500;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:5px;min-width:200px;box-shadow:var(--shadow-lg);display:none;animation:ctxIn .15s cubic-bezier(.4,0,.2,1)}
-.ctx-menu.open{display:block}
-@keyframes ctxIn{from{opacity:0;transform:scale(.95) translateY(-4px)}to{opacity:1;transform:none}}
-.ctx-reactions{display:flex;gap:2px;padding:6px 8px 8px;border-bottom:1px solid var(--border);margin-bottom:4px}
-.ctx-reaction{width:34px;height:34px;border-radius:var(--radius-sm);border:none;background:none;cursor:pointer;font-size:18px;transition:all .12s;display:flex;align-items:center;justify-content:center}
-.ctx-reaction:hover{background:var(--accentbg);transform:scale(1.2)}
-.ctx-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);transition:all .12s;border:none;background:none;width:100%;font-family:var(--font);text-align:left}
-.ctx-item:hover{background:var(--accentbg);color:var(--text)}
-.ctx-item.danger{color:var(--red)}
-.ctx-item.danger:hover{background:rgba(239,68,68,0.08)}
-.ctx-item svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
-.ctx-sep{height:1px;background:var(--border);margin:4px 0}
+/* ── HOVER TOOLBAR (comme Discord) ── */
+.msg-group{position:relative}
+.msg-continued{position:relative}
+.msg-toolbar{position:absolute;top:-14px;right:16px;background:var(--bg2);border:1px solid var(--border);
+  border-radius:10px;padding:3px;display:none;align-items:center;gap:1px;
+  box-shadow:var(--shadow);z-index:10;animation:tbIn .12s ease}
+@keyframes tbIn{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+.msg-group:hover .msg-toolbar,.msg-continued:hover .msg-toolbar{display:flex}
+.tb-btn{width:30px;height:30px;border-radius:7px;border:none;background:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:15px;
+  color:var(--text2);transition:all .12s}
+.tb-btn:hover{background:var(--accentbg);color:var(--text)}
+.tb-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.tb-sep{width:1px;height:18px;background:var(--border);margin:0 2px}
+
+/* DROPDOWN MENU from toolbar */
+.tb-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:var(--bg2);
+  border:1px solid var(--border);border-radius:var(--radius);padding:5px;
+  min-width:190px;box-shadow:var(--shadow-lg);z-index:100;
+  display:none;animation:tbIn .15s ease}
+.tb-dropdown.open{display:block}
+.tb-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius-sm);
+  cursor:pointer;font-size:13px;font-weight:600;color:var(--text2);transition:all .12s;
+  border:none;background:none;width:100%;font-family:var(--font);text-align:left}
+.tb-item:hover{background:var(--accentbg);color:var(--text)}
+.tb-item.danger{color:var(--red)}
+.tb-item.danger:hover{background:rgba(239,68,68,0.08)}
+.tb-item svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.tb-sep-line{height:1px;background:var(--border);margin:4px 0}
+
+/* REACTION PICKER */
+.reaction-picker{position:absolute;top:calc(100% + 6px);right:0;background:var(--bg2);
+  border:1px solid var(--border);border-radius:var(--radius);padding:8px;
+  display:none;gap:4px;box-shadow:var(--shadow-lg);z-index:100;animation:tbIn .15s ease}
+.reaction-picker.open{display:flex}
+.rp-btn{width:36px;height:36px;border-radius:var(--radius-sm);border:none;background:none;
+  cursor:pointer;font-size:20px;transition:all .12s;display:flex;align-items:center;justify-content:center}
+.rp-btn:hover{background:var(--accentbg);transform:scale(1.25)}
+
+/* EDIT + REACTIONS */
 .edit-input{width:100%;padding:8px 10px;border-radius:var(--radius-sm);border:1.5px solid var(--blue);background:var(--bg3);color:var(--text);font-family:var(--font);font-size:14px;outline:none;margin-top:4px;resize:none;line-height:1.5}
 .edit-hint{font-size:11px;color:var(--text3);margin-top:4px}
 .msg-reactions{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
@@ -479,29 +506,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
   <img id="lightboxImg" src="" alt="">
 </div>
 
-<!-- CONTEXT MENU -->
-<div class="ctx-menu" id="ctxMenu">
-  <div class="ctx-reactions">
-    <button class="ctx-reaction" onclick="addReaction('👍')">👍</button>
-    <button class="ctx-reaction" onclick="addReaction('❤️')">❤️</button>
-    <button class="ctx-reaction" onclick="addReaction('😂')">😂</button>
-    <button class="ctx-reaction" onclick="addReaction('🔥')">🔥</button>
-    <button class="ctx-reaction" onclick="addReaction('😮')">😮</button>
-  </div>
-  <button class="ctx-item" onclick="ctxReply()">
-    <svg viewBox="0 0 24 24"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 00-4-4H4"/></svg>Répondre
-  </button>
-  <button class="ctx-item" onclick="ctxCopy()">
-    <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Copier le texte
-  </button>
-  <div class="ctx-sep" id="ctxOwnSep" style="display:none"></div>
-  <button class="ctx-item" id="ctxEditBtn" onclick="ctxEdit()" style="display:none">
-    <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Modifier
-  </button>
-  <button class="ctx-item danger" id="ctxDeleteBtn" onclick="ctxDelete()" style="display:none">
-    <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>Supprimer
-  </button>
-</div>
+<!-- Toolbar is injected per-message in JS -->
 
 <div class="toast-wrap" id="toastWrap"></div>
 
@@ -715,15 +720,17 @@ function appendMessage(msg) {
     }
   }
 
+  const tb = toolbarHTML(msg.id, msg.uid, msg.text || '');
+
   if (isContinued) {
     const el = document.createElement('div');
     el.className = 'msg-continued'; el.dataset.id = msg.id;
-    el.innerHTML = `<div class="msg-time-left">${timeStr}</div><div>${content}</div>`;
+    el.innerHTML = `${tb}<div class="msg-time-left">${timeStr}</div><div>${content}</div>`;
     wrap.appendChild(el);
   } else {
     const el = document.createElement('div');
     el.className = `msg-group ${isOwn?'msg-own':''}`; el.dataset.id = msg.id;
-    el.innerHTML = `${avatarHtml}<div class="msg-content">
+    el.innerHTML = `${tb}${avatarHtml}<div class="msg-content">
       <div class="msg-header">
         <span class="msg-author" onclick="showProfile('${msg.uid}','${escHtml(msg.authorName||'')}','${escHtml(msg.authorEmail||'')}','${escHtml(msg.photoURL||'')}',event)">${escHtml(msg.authorName||'Utilisateur')}</span>
         <span class="msg-time">${timeStr}</span>
@@ -943,9 +950,170 @@ window.showToast = (msg, type='') => {
   setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(8px)';t.style.transition='all .3s';setTimeout(()=>t.remove(),300);},3000);
 };
 
+
+// ── HOVER TOOLBAR ────────────────────────
+let tbMsgId = null;
+let tbMsgUid = null;
+let tbMsgText = null;
+
+function toolbarHTML(msgId, msgUid, msgText) {
+  const isOwn = msgUid === currentUser?.uid;
+  const ownBtns = isOwn ? `
+    <div class="tb-sep"></div>
+    <button class="tb-btn" title="Modifier" onclick="tbEdit('${msgId}')">
+      <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+    </button>
+    <button class="tb-btn" title="Supprimer" onclick="tbDelete('${msgId}')" style="color:var(--red)">
+      <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>
+    </button>` : '';
+
+  return `<div class="msg-toolbar" id="tb-${msgId}">
+    <div style="position:relative">
+      <button class="tb-btn" title="Réagir" onclick="toggleReactionPicker('${msgId}',event)">😊</button>
+      <div class="reaction-picker" id="rp-${msgId}">
+        <button class="rp-btn" onclick="addReaction('👍','${msgId}')">👍</button>
+        <button class="rp-btn" onclick="addReaction('❤️','${msgId}')">❤️</button>
+        <button class="rp-btn" onclick="addReaction('😂','${msgId}')">😂</button>
+        <button class="rp-btn" onclick="addReaction('🔥','${msgId}')">🔥</button>
+        <button class="rp-btn" onclick="addReaction('😮','${msgId}')">😮</button>
+      </div>
+    </div>
+    <button class="tb-btn" title="Répondre" onclick="tbReply('${msgId}','${msgUid}')">
+      <svg viewBox="0 0 24 24"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 00-4-4H4"/></svg>
+    </button>
+    <button class="tb-btn" title="Copier" onclick="tbCopy('${msgId}')">
+      <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+    </button>
+    ${ownBtns}
+  </div>`;
+}
+
+window.toggleReactionPicker = (msgId, e) => {
+  e.stopPropagation();
+  const picker = document.getElementById('rp-' + msgId);
+  if (!picker) return;
+  const isOpen = picker.classList.contains('open');
+  document.querySelectorAll('.reaction-picker').forEach(p => p.classList.remove('open'));
+  if (!isOpen) picker.classList.add('open');
+};
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('.reaction-picker').forEach(p => p.classList.remove('open'));
+});
+
+window.tbCopy = (msgId) => {
+  const wrap = document.getElementById('messagesWrap');
+  const msgEl = wrap.querySelector('[data-id="' + msgId + '"]');
+  const textEl = msgEl?.querySelector('.msg-text');
+  if (textEl) {
+    navigator.clipboard.writeText(textEl.innerText).then(() => showToast('Texte copié !', 'success'));
+  }
+};
+
+window.tbReply = (msgId, uid) => {
+  const wrap = document.getElementById('messagesWrap');
+  const msgEl = wrap.querySelector('[data-id="' + msgId + '"]');
+  const authorEl = msgEl?.querySelector('.msg-author');
+  const name = authorEl?.textContent || 'quelqu\'un';
+  const input = document.getElementById('msgInput');
+  input.value = '@' + name + ' ';
+  input.focus();
+  autoResize(input);
+};
+
+window.tbEdit = (msgId) => {
+  const wrap = document.getElementById('messagesWrap');
+  const msgEl = wrap.querySelector('[data-id="' + msgId + '"]');
+  if (!msgEl) return;
+  const textEl = msgEl.querySelector('.msg-text');
+  if (!textEl) return;
+  const original = textEl.innerText;
+  textEl.style.display = 'none';
+
+  const editArea = document.createElement('textarea');
+  editArea.className = 'edit-input';
+  editArea.value = original;
+  editArea.rows = 1;
+  const hint = document.createElement('div');
+  hint.className = 'edit-hint';
+  hint.textContent = 'Entrée pour sauvegarder • Échap pour annuler';
+  textEl.parentNode.insertBefore(editArea, textEl.nextSibling);
+  textEl.parentNode.insertBefore(hint, editArea.nextSibling);
+  editArea.focus();
+  editArea.style.height = Math.min(editArea.scrollHeight, 120) + 'px';
+
+  editArea.addEventListener('keydown', async (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      const newText = editArea.value.trim();
+      if (newText && newText !== original) {
+        try {
+          const { updateDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+          await updateDoc(doc(db, 'channels', currentChannel, 'messages', msgId), { text: newText, edited: true });
+          textEl.innerHTML = makeLinksClickable(newText);
+          showToast('Message modifié !', 'success');
+        } catch(err) { showToast('Erreur modification', 'error'); }
+      }
+      textEl.style.display = '';
+      editArea.remove(); hint.remove();
+    }
+    if (e.key === 'Escape') {
+      textEl.style.display = '';
+      editArea.remove(); hint.remove();
+    }
+  });
+};
+
+window.tbDelete = async (msgId) => {
+  if (!currentUser) return;
+  try {
+    const { deleteDoc } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    await deleteDoc(doc(db, 'channels', currentChannel, 'messages', msgId));
+    const wrap = document.getElementById('messagesWrap');
+    const msgEl = wrap.querySelector('[data-id="' + msgId + '"]');
+    if (msgEl) { msgEl.style.opacity='0'; msgEl.style.transition='opacity .2s'; setTimeout(()=>msgEl.remove(),200); }
+    showToast('Message supprimé', '');
+  } catch(e) { showToast('Erreur suppression', 'error'); }
+};
+
+window.addReaction = async (emoji, msgId) => {
+  document.querySelectorAll('.reaction-picker').forEach(p => p.classList.remove('open'));
+  if (!msgId || !currentUser) return;
+  try {
+    const { updateDoc, getDoc: gd } = await import('https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js');
+    const msgRef = doc(db, 'channels', currentChannel, 'messages', msgId);
+    const msgSnap = await gd(msgRef);
+    const reactions = { ...(msgSnap.data()?.reactions || {}) };
+    const users = reactions[emoji] || [];
+    const uid = currentUser.uid;
+    reactions[emoji] = users.includes(uid) ? users.filter(u => u !== uid) : [...users, uid];
+    await updateDoc(msgRef, { reactions });
+    const wrap = document.getElementById('messagesWrap');
+    const msgEl = wrap.querySelector('[data-id="' + msgId + '"]');
+    if (msgEl) updateReactionPills(msgEl, reactions, msgId);
+  } catch(e) { showToast('Erreur réaction', 'error'); }
+};
+
+function updateReactionPills(msgEl, reactions, msgId) {
+  let pillsEl = msgEl.querySelector('.msg-reactions');
+  if (!pillsEl) {
+    pillsEl = document.createElement('div');
+    pillsEl.className = 'msg-reactions';
+    const content = msgEl.querySelector('.msg-content') || msgEl;
+    content.appendChild(pillsEl);
+  }
+  pillsEl.innerHTML = Object.entries(reactions)
+    .filter(([,users]) => users.length > 0)
+    .map(([emoji, users]) => {
+      const mine = users.includes(currentUser?.uid);
+      return `<span class="reaction-pill ${mine?'mine':''}" onclick="addReaction('${emoji}','${msgId}')">${emoji} ${users.length}</span>`;
+    }).join('');
+}
+
 function showError(msg){const el=document.getElementById('loginError');el.textContent=msg;el.classList.add('show');}
 function hideError(){document.getElementById('loginError').classList.remove('show');}
 function escHtml(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
 </script>
 </body>
 </html>
