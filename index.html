@@ -11,9 +11,8 @@
   --bg:#09090b;--bg2:#111113;--bg3:#18181b;--bg4:#1e1e22;
   --border:#27272a;--border2:#3f3f46;
   --text:#fafafa;--text2:#a1a1aa;--text3:#71717a;
-  --accent:#e4e4e7;--accentbg:rgba(228,228,231,0.06);
-  --blue:#3b82f6;--bluebg:rgba(59,130,246,0.1);
-  --green:#22c55e;--red:#ef4444;
+  --accentbg:rgba(228,228,231,0.06);
+  --blue:#3b82f6;--green:#22c55e;--red:#ef4444;--purple:#8b5cf6;
   --radius:14px;--radius-sm:8px;--radius-lg:20px;
   --font:'Cabinet Grotesk',sans-serif;
   --font-display:'Clash Display',sans-serif;
@@ -24,13 +23,15 @@
   --bg:#f4f4f5;--bg2:#ffffff;--bg3:#f9f9f9;--bg4:#efefef;
   --border:#e4e4e7;--border2:#d4d4d8;
   --text:#09090b;--text2:#52525b;--text3:#a1a1aa;
-  --accent:#18181b;--accentbg:rgba(24,24,27,0.06);
+  --accentbg:rgba(24,24,27,0.06);
   --shadow:0 4px 24px rgba(0,0,0,0.08);
   --shadow-lg:0 8px 48px rgba(0,0,0,0.12);
 }
 html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--bg);color:var(--text);font-size:15px;transition:background .2s,color .2s}
 .screen{position:fixed;inset:0;display:none;z-index:10}
 .screen.active{display:flex}
+
+/* LOGIN */
 #loginScreen{flex-direction:column;align-items:center;justify-content:center;padding:24px;background:var(--bg);background-image:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(59,130,246,0.08) 0%,transparent 70%)}
 .login-card{width:100%;max-width:400px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px 36px;box-shadow:var(--shadow-lg);animation:fadeUp .5s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -40,8 +41,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .login-logo-name{font-family:var(--font-display);font-size:22px;font-weight:700;letter-spacing:-.5px}
 .login-title{font-family:var(--font-display);font-size:26px;font-weight:600;margin-bottom:6px;letter-spacing:-.5px}
 .login-sub{font-size:14px;color:var(--text2);margin-bottom:32px;line-height:1.5}
-.btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 20px;border-radius:var(--radius);border:1.5px solid var(--border2);background:var(--bg3);cursor:pointer;font-family:var(--font);font-size:14px;font-weight:700;color:var(--text);transition:all .18s;letter-spacing:.1px}
-.btn-google:hover{background:var(--bg4);border-color:var(--text3);transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 20px;border-radius:var(--radius);border:1.5px solid var(--border2);background:var(--bg3);cursor:pointer;font-family:var(--font);font-size:14px;font-weight:700;color:var(--text);transition:all .18s}
+.btn-google:hover{background:var(--bg4);transform:translateY(-1px);box-shadow:var(--shadow)}
 .btn-google svg{width:18px;height:18px;flex-shrink:0}
 .login-divider{display:flex;align-items:center;gap:12px;margin:20px 0;color:var(--text3);font-size:12px;font-weight:600;letter-spacing:.5px}
 .login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border)}
@@ -49,17 +50,21 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .login-input{width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:var(--bg3);color:var(--text);font-family:var(--font);font-size:14px;outline:none;transition:border .18s}
 .login-input::placeholder{color:var(--text3)}
 .login-input:focus{border-color:var(--blue)}
-.btn-primary{width:100%;padding:13px;border-radius:var(--radius);border:none;background:var(--text);color:var(--bg);font-family:var(--font);font-size:14px;font-weight:800;cursor:pointer;transition:all .18s;letter-spacing:.2px}
+.btn-primary{width:100%;padding:13px;border-radius:var(--radius);border:none;background:var(--text);color:var(--bg);font-family:var(--font);font-size:14px;font-weight:800;cursor:pointer;transition:all .18s}
 .btn-primary:hover{opacity:.88;transform:translateY(-1px)}
 .login-switch{text-align:center;margin-top:16px;font-size:13px;color:var(--text2)}
 .login-switch span{color:var(--text);font-weight:700;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .login-error{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--red);margin-bottom:12px;display:none}
 .login-error.show{display:block}
+
+/* APP */
 #appScreen{flex-direction:row;height:100%}
+
+/* SIDEBAR */
 .sidebar{width:72px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:4px;flex-shrink:0;transition:width .25s cubic-bezier(.4,0,.2,1);overflow:hidden;position:relative;z-index:20}
 .sidebar.expanded{width:240px}
 .sidebar-top{display:flex;flex-direction:column;align-items:center;width:100%;padding:0 12px;gap:2px}
-.sidebar-logo{width:40px;height:40px;background:var(--text);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;margin-bottom:8px}
+.sidebar-logo{width:40px;height:40px;background:var(--text);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer}
 .sidebar-logo svg{width:20px;height:20px;stroke:var(--bg);fill:none;stroke-width:2.5}
 .sidebar-logo-text{font-family:var(--font-display);font-size:17px;font-weight:700;white-space:nowrap;opacity:0;transition:opacity .2s;margin-left:10px;letter-spacing:-.3px}
 .sidebar.expanded .sidebar-logo-text{opacity:1}
@@ -70,19 +75,22 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .nav-item svg{width:18px;height:18px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8}
 .nav-label{font-size:13px;font-weight:600;white-space:nowrap;opacity:0;transition:opacity .2s}
 .sidebar.expanded .nav-label{opacity:1}
-.nav-badge{position:absolute;top:8px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--blue)}
-.sidebar.expanded .nav-badge{position:static;width:auto;height:auto;border-radius:20px;padding:1px 7px;font-size:10px;font-weight:800;color:#fff;background:var(--blue)}
 .sidebar-spacer{flex:1}
 .sidebar-bottom{display:flex;flex-direction:column;align-items:center;width:100%;padding:0 12px;gap:2px}
 .avatar-btn{display:flex;align-items:center;width:100%;padding:8px 10px;border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;gap:10px;border:none;background:none;font-family:var(--font)}
 .avatar-btn:hover{background:var(--accentbg)}
-.avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);border:2px solid var(--border2)}
+.av{width:32px;height:32px;border-radius:50%;flex-shrink:0;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);border:2px solid var(--border2);overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .avatar-info{opacity:0;transition:opacity .2s;text-align:left;overflow:hidden}
 .sidebar.expanded .avatar-info{opacity:1}
 .avatar-name{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
 .avatar-status{font-size:11px;color:var(--text3);display:flex;align-items:center;gap:4px}
 .status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+/* MAIN */
 .main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--bg)}
+
+/* TOPBAR */
 .topbar{height:56px;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:12px;background:var(--bg2);flex-shrink:0}
 .topbar-toggle{width:34px;height:34px;border-radius:var(--radius-sm);border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:all .15s}
 .topbar-toggle:hover{background:var(--accentbg);color:var(--text)}
@@ -94,26 +102,47 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .icon-btn{width:34px;height:34px;border-radius:var(--radius-sm);border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:all .15s}
 .icon-btn:hover{background:var(--accentbg);color:var(--text)}
 .icon-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* MESSAGES */
 .messages-wrap{flex:1;overflow-y:auto;padding:20px 0;display:flex;flex-direction:column;gap:2px;scroll-behavior:smooth}
 .messages-wrap::-webkit-scrollbar{width:4px}
-.messages-wrap::-webkit-scrollbar-track{background:transparent}
 .messages-wrap::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
 .msg-group{padding:6px 20px;display:flex;gap:14px;transition:background .1s;border-radius:4px}
 .msg-group:hover{background:var(--accentbg)}
-.msg-avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;object-fit:cover;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);margin-top:2px;border:1.5px solid var(--border)}
+.msg-av{width:36px;height:36px;border-radius:50%;flex-shrink:0;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:var(--text);margin-top:2px;border:1.5px solid var(--border);overflow:hidden;cursor:pointer}
+.msg-av img{width:100%;height:100%;object-fit:cover}
 .msg-content{flex:1;min-width:0}
 .msg-header{display:flex;align-items:baseline;gap:8px;margin-bottom:3px}
-.msg-author{font-size:14px;font-weight:800;cursor:pointer}
-.msg-author:hover{text-decoration:underline;text-underline-offset:2px}
+.msg-author{font-size:14px;font-weight:800;cursor:pointer;transition:color .15s}
+.msg-author:hover{color:var(--blue)}
 .msg-time{font-size:11px;color:var(--text3);font-weight:500}
 .msg-text{font-size:14px;color:var(--text);line-height:1.55;word-break:break-word}
+.msg-text a{color:var(--blue);text-decoration:none;font-weight:600}
+.msg-text a:hover{text-decoration:underline}
 .msg-continued{padding:2px 20px;display:flex;gap:14px}
 .msg-continued:hover{background:var(--accentbg);border-radius:4px}
 .msg-continued .msg-time-left{width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;font-size:10px;color:transparent;transition:color .1s;padding-right:2px}
 .msg-continued:hover .msg-time-left{color:var(--text3)}
-.msg-continued .msg-text{font-size:14px;line-height:1.55;word-break:break-word}
 .msg-own .msg-author{color:var(--blue)}
-.typing-indicator{padding:8px 20px;font-size:12px;color:var(--text3);display:flex;align-items:center;gap:8px;min-height:28px}
+
+/* MEDIA IN MESSAGES */
+.msg-img{max-width:320px;max-height:280px;border-radius:10px;margin-top:6px;cursor:pointer;transition:opacity .15s;display:block;object-fit:cover}
+.msg-img:hover{opacity:.9}
+.msg-video{max-width:320px;border-radius:10px;margin-top:6px;display:block}
+.msg-file{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:8px 12px;margin-top:6px;font-size:13px;font-weight:600;color:var(--text2);text-decoration:none;transition:all .15s}
+.msg-file:hover{border-color:var(--border2);color:var(--text)}
+.msg-file svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+
+/* UPLOAD PROGRESS */
+.upload-progress{padding:8px 20px;font-size:12px;color:var(--text2);display:none;align-items:center;gap:10px}
+.upload-progress.show{display:flex}
+.progress-bar{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--blue);border-radius:2px;transition:width .3s;width:0%}
+
+/* TYPING */
+.typing-indicator{padding:4px 20px;font-size:12px;color:var(--text3);min-height:24px}
+
+/* INPUT */
 .input-area{padding:12px 20px 16px;flex-shrink:0}
 .input-box{display:flex;align-items:flex-end;gap:8px;background:var(--bg3);border:1.5px solid var(--border);border-radius:var(--radius);padding:8px 8px 8px 14px;transition:border .18s}
 .input-box:focus-within{border-color:var(--border2)}
@@ -127,6 +156,9 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .send-btn:hover{opacity:.8;transform:scale(1.05)}
 .send-btn svg{width:15px;height:15px;stroke:var(--bg);fill:none;stroke-width:2.5}
 .send-btn:disabled{opacity:.3;cursor:default;transform:none}
+#fileInput{display:none}
+
+/* CHANNELS */
 .channels-panel{width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;transition:width .25s cubic-bezier(.4,0,.2,1),opacity .25s}
 .channels-panel.hidden{width:0;opacity:0}
 .channels-header{padding:16px 16px 8px;border-bottom:1px solid var(--border)}
@@ -139,6 +171,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .add-channel{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:1px 6px;border-radius:var(--radius-sm);cursor:pointer;color:var(--text3);font-size:12px;font-weight:600;transition:all .15s}
 .add-channel:hover{background:var(--accentbg);color:var(--text2)}
 .add-channel svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* DROPDOWN */
 .dropdown{position:relative}
 .dropdown-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:5px;min-width:180px;box-shadow:var(--shadow-lg);z-index:100;opacity:0;pointer-events:none;transform:translateY(-8px) scale(.97);transition:all .18s cubic-bezier(.4,0,.2,1)}
 .dropdown-menu.open{opacity:1;pointer-events:all;transform:none}
@@ -148,6 +182,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .dropdown-item.danger:hover{background:rgba(239,68,68,0.08)}
 .dropdown-item svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
 .dropdown-sep{height:1px;background:var(--border);margin:4px 0}
+
+/* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);width:100%;max-width:420px;padding:28px;box-shadow:var(--shadow-lg);animation:fadeUp .25s ease both}
@@ -161,22 +197,54 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
 .btn-cancel:hover{background:var(--accentbg);color:var(--text)}
 .btn-confirm{padding:9px 16px;border-radius:var(--radius-sm);border:none;background:var(--text);color:var(--bg);font-family:var(--font);font-size:13px;font-weight:800;cursor:pointer;transition:all .15s}
 .btn-confirm:hover{opacity:.85}
+
+/* ── PROFILE POPUP (style Discord amélioré) ── */
+.profile-overlay{position:fixed;inset:0;z-index:300;display:none}
+.profile-overlay.open{display:block}
+.profile-popup{position:fixed;z-index:301;width:300px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;animation:popIn .2s cubic-bezier(.34,1.56,.64,1);display:none}
+.profile-popup.open{display:block}
+@keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+.profile-banner{height:80px;background:linear-gradient(135deg,#1e3a5f,#2d1b69);position:relative;flex-shrink:0}
+.profile-banner-color{height:100%;width:100%}
+.profile-popup-av{position:absolute;bottom:-22px;left:16px;width:52px;height:52px;border-radius:50%;border:4px solid var(--bg2);overflow:hidden;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;cursor:default}
+.profile-popup-av img{width:100%;height:100%;object-fit:cover}
+.profile-popup-body{padding:30px 16px 16px}
+.profile-popup-name{font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:2px}
+.profile-popup-username{font-size:12px;color:var(--text3);margin-bottom:12px;font-weight:500}
+.profile-popup-divider{height:1px;background:var(--border);margin:12px 0}
+.profile-popup-section{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.profile-popup-status{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text2);margin-bottom:10px}
+.profile-popup-status .status-dot{width:8px;height:8px}
+.profile-popup-joined{font-size:12px;color:var(--text3)}
+.profile-popup-actions{display:flex;gap:6px;margin-top:12px}
+.profile-action-btn{flex:1;padding:8px;border-radius:var(--radius-sm);border:none;background:var(--bg3);color:var(--text2);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+.profile-action-btn:hover{background:var(--bg4);color:var(--text)}
+.profile-action-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+.profile-action-btn.primary{background:var(--blue);color:#fff}
+.profile-action-btn.primary:hover{background:#2563eb}
+
+/* IMAGE LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:400;display:none;align-items:center;justify-content:center;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:10px;object-fit:contain}
+.lightbox-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:white;transition:background .15s}
+.lightbox-close:hover{background:rgba(255,255,255,0.2)}
+.lightbox-close svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* EMPTY STATE */
 .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--text3);padding:40px}
 .empty-state svg{width:40px;height:40px;stroke:var(--border2);fill:none;stroke-width:1.5;margin-bottom:4px}
 .empty-state-title{font-size:16px;font-weight:700;color:var(--text2)}
 .empty-state-sub{font-size:13px;text-align:center;line-height:1.5;max-width:280px}
+
+/* TOAST */
 .toast-wrap{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:500;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
 .toast{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 16px;font-size:13px;font-weight:600;box-shadow:var(--shadow);animation:toastIn .3s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;display:flex;align-items:center;gap:8px}
 .toast svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
 .toast.success{color:var(--green);border-color:rgba(34,197,94,.2)}
 .toast.error{color:var(--red);border-color:rgba(239,68,68,.2)}
 @keyframes toastIn{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:none}}
-.profile-card{position:fixed;z-index:150;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;width:240px;box-shadow:var(--shadow-lg);animation:fadeUp .2s ease both;display:none}
-.profile-card.open{display:block}
-.profile-card-avatar{width:56px;height:56px;border-radius:50%;margin-bottom:10px;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;border:2px solid var(--border2)}
-.profile-card-name{font-size:16px;font-weight:800;margin-bottom:2px}
-.profile-card-email{font-size:12px;color:var(--text3);margin-bottom:12px}
-.profile-card-status{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text2);background:var(--accentbg);padding:6px 10px;border-radius:var(--radius-sm)}
+
 @media(max-width:640px){
   .sidebar{width:56px}.sidebar.expanded{width:200px}
   .channels-panel{position:fixed;left:56px;top:0;bottom:0;z-index:15;box-shadow:var(--shadow-lg)}
@@ -185,24 +253,24 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
   .messages-wrap{padding:12px 0}
   .msg-group,.msg-continued{padding-left:12px;padding-right:12px}
   .input-area{padding:8px 12px 12px}
+  .profile-popup{width:260px}
 }
 </style>
 </head>
 <body>
 
+<!-- LOGIN -->
 <div class="screen active" id="loginScreen">
   <div class="login-card">
     <div class="login-logo">
-      <div class="login-logo-mark">
-        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-      </div>
+      <div class="login-logo-mark"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
       <div class="login-logo-name">Fluxus</div>
     </div>
     <div class="login-title" id="loginTitle">Connexion</div>
     <div class="login-sub" id="loginSub">Content de te revoir.</div>
     <div class="login-error" id="loginError"></div>
     <button class="btn-google" onclick="loginGoogle()">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
       Continuer avec Google
     </button>
     <div class="login-divider">ou</div>
@@ -216,13 +284,12 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
   </div>
 </div>
 
+<!-- APP -->
 <div class="screen" id="appScreen">
   <div class="sidebar" id="sidebar">
     <div class="sidebar-top">
       <div class="sidebar-logo-row">
-        <div class="sidebar-logo" onclick="toggleSidebar()">
-          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
+        <div class="sidebar-logo" onclick="toggleSidebar()"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
         <div class="sidebar-logo-text">Fluxus</div>
       </div>
       <button class="nav-item active" id="navGeneral" onclick="switchView('general')">
@@ -233,14 +300,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span class="nav-label">Salons</span>
       </button>
-      <button class="nav-item" id="navMembers" onclick="switchView('members')">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        <span class="nav-label">Membres</span>
-      </button>
     </div>
     <div class="sidebar-spacer"></div>
     <div class="sidebar-bottom">
-      <button class="nav-item" onclick="toggleTheme()" id="themeBtn">
+      <button class="nav-item" onclick="toggleTheme()">
         <svg viewBox="0 0 24 24" id="themeIcon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
         <span class="nav-label">Thème</span>
       </button>
@@ -262,8 +325,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
           </button>
         </div>
       </div>
-      <button class="avatar-btn" onclick="showProfileCard(event)">
-        <div class="avatar" id="sidebarAvatar">?</div>
+      <button class="avatar-btn" onclick="openMyProfile(event)">
+        <div class="av" id="sidebarAvatar">?</div>
         <div class="avatar-info">
           <div class="avatar-name" id="sidebarName">Chargement...</div>
           <div class="avatar-status"><div class="status-dot"></div>En ligne</div>
@@ -280,7 +343,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
     </div>
   </div>
 
-  <div class="main" id="mainArea">
+  <div class="main">
     <div class="topbar">
       <button class="topbar-toggle" onclick="toggleChannels()">
         <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -300,7 +363,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
               <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Nouveau salon
             </button>
             <button class="dropdown-item" onclick="toggleTheme();closeDropdown('moreMenu')">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>Changer de thème
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>Thème
             </button>
             <div class="dropdown-sep"></div>
             <button class="dropdown-item danger" onclick="logout();closeDropdown('moreMenu')">
@@ -314,15 +377,23 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
       <div class="empty-state" id="emptyState">
         <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         <div class="empty-state-title">Début de la discussion</div>
-        <div class="empty-state-sub">Sois le premier à envoyer un message dans ce salon.</div>
+        <div class="empty-state-sub">Sois le premier à écrire ici.</div>
       </div>
+    </div>
+    <div class="upload-progress" id="uploadProgress">
+      <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:var(--blue);fill:none;stroke-width:2;flex-shrink:0"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <span id="uploadText">Upload en cours...</span>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
     <div class="typing-indicator" id="typingIndicator"></div>
     <div class="input-area">
       <div class="input-box">
         <textarea class="input-field" id="msgInput" placeholder="Envoyer un message..." rows="1"
-          onkeydown="handleKey(event)" oninput="autoResize(this);handleTyping()"></textarea>
+          onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
         <div class="input-actions">
+          <button class="input-btn" onclick="document.getElementById('fileInput').click()" title="Envoyer un fichier">
+            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          </button>
           <button class="input-btn" onclick="openModal('channelModal')" title="Nouveau salon">
             <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           </button>
@@ -332,9 +403,11 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
         </div>
       </div>
     </div>
+    <input type="file" id="fileInput" accept="image/*,video/*" onchange="handleFileUpload(this)">
   </div>
 </div>
 
+<!-- MODALS -->
 <div class="modal-overlay" id="channelModal">
   <div class="modal">
     <div class="modal-title">Nouveau salon</div>
@@ -359,11 +432,31 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);background:var(--b
   </div>
 </div>
 
-<div class="profile-card" id="profileCard">
-  <div class="profile-card-avatar" id="pcAvatar"></div>
-  <div class="profile-card-name" id="pcName"></div>
-  <div class="profile-card-email" id="pcEmail"></div>
-  <div class="profile-card-status"><div class="status-dot"></div><span>En ligne</span></div>
+<!-- PROFILE POPUP -->
+<div class="profile-overlay" id="profileOverlay" onclick="closeProfilePopup()"></div>
+<div class="profile-popup" id="profilePopup">
+  <div class="profile-banner">
+    <div class="profile-banner-color" id="profileBannerColor"></div>
+    <div class="profile-popup-av" id="profilePopupAv"></div>
+  </div>
+  <div class="profile-popup-body">
+    <div class="profile-popup-name" id="profilePopupName"></div>
+    <div class="profile-popup-username" id="profilePopupUsername"></div>
+    <div class="profile-popup-divider"></div>
+    <div class="profile-popup-section">Statut</div>
+    <div class="profile-popup-status"><div class="status-dot"></div><span>En ligne sur Fluxus</span></div>
+    <div class="profile-popup-section">Membre depuis</div>
+    <div class="profile-popup-joined" id="profilePopupJoined"></div>
+    <div class="profile-popup-actions" id="profilePopupActions"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <img id="lightboxImg" src="" alt="">
 </div>
 
 <div class="toast-wrap" id="toastWrap"></div>
@@ -374,10 +467,10 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPas
   signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot,
-  serverTimestamp, doc, setDoc, getDocs, limit }
+  serverTimestamp, doc, setDoc, getDoc, getDocs, limit }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-// ✅ TA CONFIG FIREBASE — CORRECTE
+// ✅ CONFIG FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyBlSYrryaQMIOe7WRTIcwtctP-37zO_g60",
   authDomain: "fluxus-60710.firebaseapp.com",
@@ -385,8 +478,11 @@ const firebaseConfig = {
   storageBucket: "fluxus-60710.firebasestorage.app",
   messagingSenderId: "368423653994",
   appId: "1:368423653994:web:957fea961c251c4a0ab013"
-  // measurementId retiré — Analytics pas nécessaire
 };
+
+// ✅ CONFIG CLOUDINARY
+const CLOUDINARY_CLOUD = 'dji7sqcyh';
+const CLOUDINARY_PRESET = 'fluxus_uploads';
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -396,19 +492,15 @@ const googleProvider = new GoogleAuthProvider();
 let currentUser = null;
 let currentChannel = 'general';
 let channels = ['general'];
-let typingTimeout = null;
 let unsubMessages = null;
 let isSignup = false;
 let lastMsgAuthor = null;
 let lastMsgTime = null;
 
+// ── AUTH ──────────────────────────────────
 window.loginGoogle = async () => {
-  try {
-    const result = await signInWithPopup(auth, googleProvider);
-    await saveUserToDb(result.user);
-  } catch(e) {
-    showError(e.message);
-  }
+  try { const r = await signInWithPopup(auth, googleProvider); await saveUser(r.user); }
+  catch(e) { showError(e.message); }
 };
 
 window.loginEmail = async () => {
@@ -421,19 +513,12 @@ window.loginEmail = async () => {
       if (!name) { showError("Entre un nom d'affichage"); return; }
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
       await updateProfile(cred.user, { displayName: name });
-      await saveUserToDb(cred.user);
+      await saveUser(cred.user);
     } else {
       await signInWithEmailAndPassword(auth, email, pass);
     }
   } catch(e) {
-    const msgs = {
-      'auth/user-not-found': 'Compte introuvable',
-      'auth/wrong-password': 'Mot de passe incorrect',
-      'auth/email-already-in-use': 'Email déjà utilisé',
-      'auth/weak-password': 'Mot de passe trop faible (6 chars min)',
-      'auth/invalid-email': 'Email invalide',
-      'auth/invalid-credential': 'Email ou mot de passe incorrect',
-    };
+    const msgs = {'auth/user-not-found':'Compte introuvable','auth/wrong-password':'Mot de passe incorrect','auth/email-already-in-use':'Email déjà utilisé','auth/weak-password':'Mot de passe trop faible','auth/invalid-email':'Email invalide','auth/invalid-credential':'Email ou mot de passe incorrect'};
     showError(msgs[e.code] || e.message);
   }
 };
@@ -450,12 +535,12 @@ window.toggleAuthMode = () => {
   hideError();
 };
 
-async function saveUserToDb(user) {
+async function saveUser(user) {
   await setDoc(doc(db, 'users', user.uid), {
     name: user.displayName || user.email?.split('@')[0] || 'Utilisateur',
     email: user.email,
     photoURL: user.photoURL || null,
-    lastSeen: serverTimestamp(),
+    joinedAt: serverTimestamp(),
   }, { merge: true });
 }
 
@@ -474,14 +559,16 @@ window.updateName = async () => {
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUser = user;
-    showApp();
-    await saveUserToDb(user);
+    document.getElementById('loginScreen').classList.remove('active');
+    document.getElementById('appScreen').classList.add('active');
+    await saveUser(user);
     updateSidebarUser(user);
     await loadChannels();
     switchChannel(currentChannel);
   } else {
     currentUser = null;
-    showLogin();
+    document.getElementById('appScreen').classList.remove('active');
+    document.getElementById('loginScreen').classList.add('active');
   }
 });
 
@@ -489,13 +576,12 @@ function updateSidebarUser(user) {
   const name = user.displayName || user.email?.split('@')[0] || 'Utilisateur';
   document.getElementById('sidebarName').textContent = name;
   const av = document.getElementById('sidebarAvatar');
-  if (user.photoURL) {
-    av.innerHTML = `<img src="${user.photoURL}" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`;
-  } else {
-    av.textContent = name.charAt(0).toUpperCase();
-  }
+  av.innerHTML = user.photoURL
+    ? `<img src="${user.photoURL}" style="width:100%;height:100%;object-fit:cover">`
+    : name.charAt(0).toUpperCase();
 }
 
+// ── CHANNELS ─────────────────────────────
 async function loadChannels() {
   const snap = await getDocs(collection(db, 'channels'));
   if (snap.empty) {
@@ -508,223 +594,314 @@ async function loadChannels() {
 }
 
 function renderChannels() {
-  const list = document.getElementById('channelsList');
-  list.innerHTML = channels.map(ch => `
-    <div class="channel-item ${ch === currentChannel ? 'active' : ''}" onclick="switchChannel('${ch}')">
-      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-      ${ch}
+  document.getElementById('channelsList').innerHTML = channels.map(ch => `
+    <div class="channel-item ${ch===currentChannel?'active':''}" onclick="switchChannel('${ch}')">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>${ch}
     </div>`).join('');
 }
 
 window.createChannel = async () => {
   const raw = document.getElementById('channelNameInput').value.trim();
   if (!raw) return;
-  const name = raw.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-  if (!name) { showToast('Nom invalide', 'error'); return; }
-  if (channels.includes(name)) { showToast('Ce salon existe déjà', 'error'); return; }
-  await setDoc(doc(db, 'channels', name), { name, createdAt: serverTimestamp() });
+  const name = raw.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  if (!name) { showToast('Nom invalide','error'); return; }
+  if (channels.includes(name)) { showToast('Ce salon existe déjà','error'); return; }
+  await setDoc(doc(db,'channels',name),{name,createdAt:serverTimestamp()});
   channels.push(name);
   renderChannels();
   closeModal('channelModal');
   switchChannel(name);
-  document.getElementById('channelNameInput').value = '';
-  showToast('Salon créé !', 'success');
+  document.getElementById('channelNameInput').value='';
+  showToast('Salon créé !','success');
 };
 
 window.switchChannel = (ch) => {
   currentChannel = ch;
   document.getElementById('currentChannelName').textContent = ch;
   renderChannels();
-  lastMsgAuthor = null;
-  lastMsgTime = null;
+  lastMsgAuthor = null; lastMsgTime = null;
   if (unsubMessages) unsubMessages();
   loadMessages(ch);
-  closeChannels();
+  if (window.innerWidth < 640) document.getElementById('channelsPanel').classList.add('hidden');
 };
 
+// ── MESSAGES ─────────────────────────────
 function loadMessages(channel) {
   const wrap = document.getElementById('messagesWrap');
-  wrap.innerHTML = '<div class="empty-state" id="emptyState"><svg viewBox="0 0 24 24" style="width:40px;height:40px;stroke:var(--border2);fill:none;stroke-width:1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><div class="empty-state-title">Début de la discussion</div><div class="empty-state-sub">Sois le premier à envoyer un message ici.</div></div>';
-  const q = query(collection(db, 'channels', channel, 'messages'), orderBy('createdAt'), limit(100));
-  unsubMessages = onSnapshot(q, (snap) => {
-    let firstLoad = wrap.querySelector('#emptyState') !== null;
-    if (firstLoad) wrap.innerHTML = '';
-    snap.docChanges().forEach(change => {
-      if (change.type === 'added') {
-        const msg = { id: change.doc.id, ...change.doc.data() };
-        if (firstLoad) {
-          appendMessage(msg);
-        } else {
-          const existing = wrap.querySelector(`[data-id="${msg.id}"]`);
-          if (!existing) appendMessage(msg);
-        }
+  wrap.innerHTML = `<div class="empty-state" id="emptyState"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><div class="empty-state-title">Début de la discussion</div><div class="empty-state-sub">Sois le premier à écrire ici.</div></div>`;
+  const q = query(collection(db,'channels',channel,'messages'),orderBy('createdAt'),limit(100));
+  unsubMessages = onSnapshot(q,(snap) => {
+    let first = !!wrap.querySelector('#emptyState');
+    if (first) wrap.innerHTML = '';
+    snap.docChanges().forEach(c => {
+      if (c.type==='added') {
+        const msg = {id:c.doc.id,...c.doc.data()};
+        if (!wrap.querySelector(`[data-id="${msg.id}"]`)) appendMessage(msg);
       }
     });
-    scrollToBottom();
+    wrap.scrollTop = wrap.scrollHeight;
   });
+}
+
+function makeLinksClickable(text) {
+  const urlRegex = /(https?:\/\/[^\s<>"]+)/g;
+  return escHtml(text).replace(urlRegex, url => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
 }
 
 function appendMessage(msg) {
   const wrap = document.getElementById('messagesWrap');
   const isOwn = msg.uid === currentUser?.uid;
   const time = msg.createdAt?.toDate?.() || new Date();
-  const timeStr = time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  const isContinued = lastMsgAuthor === msg.uid && (time - lastMsgTime) < 5 * 60 * 1000;
-  const initials = (msg.authorName || '?').charAt(0).toUpperCase();
+  const timeStr = time.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  const isContinued = lastMsgAuthor===msg.uid && (time-lastMsgTime) < 5*60*1000;
+  const initials = (msg.authorName||'?').charAt(0).toUpperCase();
+  const hue = (msg.uid||'').charCodeAt(0)*5%360;
   const avatarHtml = msg.photoURL
-    ? `<img src="${msg.photoURL}" class="msg-avatar" style="width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;border:1.5px solid var(--border)">`
-    : `<div class="msg-avatar" style="background:hsl(${(msg.uid||'').charCodeAt(0)*5%360},40%,40%)">${initials}</div>`;
+    ? `<div class="msg-av" onclick="showProfile('${msg.uid}','${escHtml(msg.authorName||'')}','${escHtml(msg.authorEmail||'')}','${escHtml(msg.photoURL||'')}',event)"><img src="${msg.photoURL}" alt=""></div>`
+    : `<div class="msg-av" style="background:hsl(${hue},40%,40%)" onclick="showProfile('${msg.uid}','${escHtml(msg.authorName||'')}','${escHtml(msg.authorEmail||'')}','',event)">${initials}</div>`;
+
+  // Contenu du message (texte + media)
+  let content = '';
+  if (msg.text) content += `<div class="msg-text">${makeLinksClickable(msg.text)}</div>`;
+  if (msg.mediaUrl) {
+    if (msg.mediaType === 'video') {
+      content += `<video class="msg-video" src="${msg.mediaUrl}" controls></video>`;
+    } else {
+      content += `<img class="msg-img" src="${msg.mediaUrl}" alt="image" onclick="openLightbox('${msg.mediaUrl}')">`;
+    }
+  }
 
   if (isContinued) {
     const el = document.createElement('div');
-    el.className = 'msg-continued';
-    el.dataset.id = msg.id;
-    el.innerHTML = `<div class="msg-time-left">${timeStr}</div><div class="msg-text">${escapeHtml(msg.text)}</div>`;
+    el.className = 'msg-continued'; el.dataset.id = msg.id;
+    el.innerHTML = `<div class="msg-time-left">${timeStr}</div><div>${content}</div>`;
     wrap.appendChild(el);
   } else {
     const el = document.createElement('div');
-    el.className = `msg-group ${isOwn ? 'msg-own' : ''}`;
-    el.dataset.id = msg.id;
-    el.innerHTML = `
-      ${avatarHtml}
-      <div class="msg-content">
-        <div class="msg-header">
-          <span class="msg-author" onclick="showProfileCardById('${msg.uid}','${escapeHtml(msg.authorName||'')}','${escapeHtml(msg.authorEmail||'')}',event)">${escapeHtml(msg.authorName || 'Utilisateur')}</span>
-          <span class="msg-time">${timeStr}</span>
-        </div>
-        <div class="msg-text">${escapeHtml(msg.text)}</div>
-      </div>`;
+    el.className = `msg-group ${isOwn?'msg-own':''}`; el.dataset.id = msg.id;
+    el.innerHTML = `${avatarHtml}<div class="msg-content">
+      <div class="msg-header">
+        <span class="msg-author" onclick="showProfile('${msg.uid}','${escHtml(msg.authorName||'')}','${escHtml(msg.authorEmail||'')}','${escHtml(msg.photoURL||'')}',event)">${escHtml(msg.authorName||'Utilisateur')}</span>
+        <span class="msg-time">${timeStr}</span>
+      </div>${content}</div>`;
     wrap.appendChild(el);
   }
-  lastMsgAuthor = msg.uid;
-  lastMsgTime = time;
+  lastMsgAuthor = msg.uid; lastMsgTime = time;
 }
 
 window.sendMessage = async () => {
   const input = document.getElementById('msgInput');
   const text = input.value.trim();
   if (!text || !currentUser) return;
-  const user = currentUser;
-  input.value = '';
-  autoResize(input);
+  input.value = ''; autoResize(input);
   document.getElementById('sendBtn').disabled = true;
-  await addDoc(collection(db, 'channels', currentChannel, 'messages'), {
-    text,
-    uid: user.uid,
-    authorName: user.displayName || user.email?.split('@')[0] || 'Utilisateur',
-    authorEmail: user.email || '',
-    photoURL: user.photoURL || null,
+  await addDoc(collection(db,'channels',currentChannel,'messages'),{
+    text, uid: currentUser.uid,
+    authorName: currentUser.displayName||currentUser.email?.split('@')[0]||'Utilisateur',
+    authorEmail: currentUser.email||'',
+    photoURL: currentUser.photoURL||null,
     createdAt: serverTimestamp(),
   });
 };
 
-function showApp() {
-  document.getElementById('loginScreen').classList.remove('active');
-  document.getElementById('appScreen').classList.add('active');
-}
-function showLogin() {
-  document.getElementById('appScreen').classList.remove('active');
-  document.getElementById('loginScreen').classList.add('active');
-}
-function scrollToBottom() {
-  const wrap = document.getElementById('messagesWrap');
-  wrap.scrollTop = wrap.scrollHeight;
-}
+// ── CLOUDINARY UPLOAD ─────────────────────
+window.handleFileUpload = async (input) => {
+  const file = input.files[0];
+  if (!file || !currentUser) return;
+  input.value = '';
 
-window.handleKey = (e) => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  const isVideo = file.type.startsWith('video/');
+  const maxSize = isVideo ? 100*1024*1024 : 10*1024*1024;
+  if (file.size > maxSize) { showToast(`Fichier trop lourd (max ${isVideo?'100MB':'10MB'})`, 'error'); return; }
+
+  // Afficher la progress bar
+  const prog = document.getElementById('uploadProgress');
+  const fill = document.getElementById('progressFill');
+  const txt = document.getElementById('uploadText');
+  prog.classList.add('show');
+  txt.textContent = `Upload ${isVideo?'vidéo':'image'} en cours...`;
+  fill.style.width = '0%';
+
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', CLOUDINARY_PRESET);
+
+    // XMLHttpRequest pour suivre la progression
+    const url = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) fill.style.width = Math.round(e.loaded/e.total*100)+'%';
+      };
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          const data = JSON.parse(xhr.responseText);
+          resolve(data.secure_url);
+        } else {
+          reject(new Error('Upload échoué'));
+        }
+      };
+      xhr.onerror = () => reject(new Error('Erreur réseau'));
+      xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/upload`);
+      xhr.send(formData);
+    });
+
+    prog.classList.remove('show');
+
+    // Envoyer le message avec le media
+    await addDoc(collection(db,'channels',currentChannel,'messages'),{
+      text: '',
+      mediaUrl: url,
+      mediaType: isVideo ? 'video' : 'image',
+      uid: currentUser.uid,
+      authorName: currentUser.displayName||currentUser.email?.split('@')[0]||'Utilisateur',
+      authorEmail: currentUser.email||'',
+      photoURL: currentUser.photoURL||null,
+      createdAt: serverTimestamp(),
+    });
+
+    showToast(`${isVideo?'Vidéo':'Image'} envoyée !`, 'success');
+  } catch(e) {
+    prog.classList.remove('show');
+    showToast('Erreur upload: ' + e.message, 'error');
+  }
 };
+
+// ── PROFILE POPUP ─────────────────────────
+window.showProfile = (uid, name, email, photoURL, e) => {
+  e.stopPropagation();
+  const popup = document.getElementById('profilePopup');
+  const overlay = document.getElementById('profileOverlay');
+
+  // Banner couleur basée sur l'UID
+  const hue = uid.charCodeAt(0)*5%360;
+  document.getElementById('profileBannerColor').style.background = `linear-gradient(135deg, hsl(${hue},50%,20%), hsl(${(hue+60)%360},40%,15%))`;
+
+  // Avatar
+  const av = document.getElementById('profilePopupAv');
+  av.style.background = `hsl(${hue},40%,40%)`;
+  av.innerHTML = photoURL
+    ? `<img src="${photoURL}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`
+    : name.charAt(0).toUpperCase();
+
+  document.getElementById('profilePopupName').textContent = name || 'Utilisateur';
+  document.getElementById('profilePopupUsername').textContent = email || '';
+  document.getElementById('profilePopupJoined').textContent = 'Membre de Fluxus';
+
+  // Actions — pas de bouton message sur son propre profil
+  const actions = document.getElementById('profilePopupActions');
+  if (uid !== currentUser?.uid) {
+    actions.innerHTML = `<button class="profile-action-btn primary" onclick="startDM('${uid}','${escHtml(name)}')">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>Message
+    </button>`;
+  } else {
+    actions.innerHTML = `<button class="profile-action-btn" onclick="openModal('profileModal');closeProfilePopup()">
+      <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Modifier
+    </button>`;
+  }
+
+  // Positionner le popup
+  const rect = e.target.getBoundingClientRect();
+  let left = rect.right + 10;
+  let top = rect.top;
+  if (left + 300 > window.innerWidth) left = rect.left - 310;
+  if (top + 320 > window.innerHeight) top = window.innerHeight - 330;
+  popup.style.left = Math.max(8, left) + 'px';
+  popup.style.top = Math.max(8, top) + 'px';
+
+  overlay.classList.add('open');
+  popup.classList.add('open');
+};
+
+window.openMyProfile = (e) => {
+  if (!currentUser) return;
+  const name = currentUser.displayName || currentUser.email?.split('@')[0] || 'Utilisateur';
+  showProfile(currentUser.uid, name, currentUser.email||'', currentUser.photoURL||'', e);
+};
+
+window.closeProfilePopup = () => {
+  document.getElementById('profilePopup').classList.remove('open');
+  document.getElementById('profileOverlay').classList.remove('open');
+};
+
+window.startDM = (uid, name) => {
+  closeProfilePopup();
+  showToast(`Message privé à ${name} — bientôt disponible !`, '');
+};
+
+// ── LIGHTBOX ──────────────────────────────
+window.openLightbox = (url) => {
+  document.getElementById('lightboxImg').src = url;
+  document.getElementById('lightbox').classList.add('open');
+};
+window.closeLightbox = () => {
+  document.getElementById('lightbox').classList.remove('open');
+};
+
+// ── UI ────────────────────────────────────
+window.handleKey = (e) => { if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();} };
 window.autoResize = (el) => {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
-  document.getElementById('sendBtn').disabled = !el.value.trim();
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,120)+'px';
+  document.getElementById('sendBtn').disabled=!el.value.trim();
 };
-window.handleTyping = () => { clearTimeout(typingTimeout); typingTimeout = setTimeout(() => {}, 2000); };
-window.toggleSidebar = () => { document.getElementById('sidebar').classList.toggle('expanded'); };
-window.toggleChannels = () => { document.getElementById('channelsPanel').classList.toggle('hidden'); };
-window.closeChannels = () => { if (window.innerWidth < 640) document.getElementById('channelsPanel').classList.add('hidden'); };
-window.switchView = (view) => {
-  document.getElementById('navGeneral').classList.toggle('active', view === 'general');
-  document.getElementById('navMembers').classList.toggle('active', view === 'members');
+window.toggleSidebar = () => document.getElementById('sidebar').classList.toggle('expanded');
+window.toggleChannels = () => document.getElementById('channelsPanel').classList.toggle('hidden');
+window.switchView = (v) => {
+  document.getElementById('navGeneral').classList.toggle('active',v==='general');
 };
 
 window.toggleTheme = () => {
-  const isDark = !document.documentElement.hasAttribute('data-theme');
-  if (isDark) { document.documentElement.setAttribute('data-theme', 'light'); }
-  else { document.documentElement.removeAttribute('data-theme'); }
+  const isLight = document.documentElement.hasAttribute('data-theme');
+  if (isLight) { document.documentElement.removeAttribute('data-theme'); }
+  else { document.documentElement.setAttribute('data-theme','light'); }
   const icon = document.getElementById('themeIcon');
-  icon.innerHTML = isDark
+  icon.innerHTML = !isLight
     ? '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>'
     : '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
-  localStorage.setItem('fluxus-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('fluxus-theme', !isLight ? 'light' : 'dark');
 };
 
 const savedTheme = localStorage.getItem('fluxus-theme');
 if (savedTheme === 'light') {
-  document.documentElement.setAttribute('data-theme', 'light');
+  document.documentElement.setAttribute('data-theme','light');
   setTimeout(() => {
     const icon = document.getElementById('themeIcon');
-    if (icon) icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>';
-  }, 100);
+    if(icon) icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>';
+  },100);
 }
 
 window.toggleDropdown = (id) => {
-  const menu = document.getElementById(id);
-  const isOpen = menu.classList.contains('open');
-  document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
-  if (!isOpen) menu.classList.add('open');
+  const m = document.getElementById(id);
+  const open = m.classList.contains('open');
+  document.querySelectorAll('.dropdown-menu').forEach(x=>x.classList.remove('open'));
+  if(!open) m.classList.add('open');
 };
 window.closeDropdown = (id) => document.getElementById(id).classList.remove('open');
 
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.dropdown')) document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('open'));
-  if (!e.target.closest('.profile-card') && !e.target.closest('.msg-author') && !e.target.closest('.avatar-btn')) {
-    document.getElementById('profileCard').classList.remove('open');
-  }
+document.addEventListener('click',(e) => {
+  if(!e.target.closest('.dropdown')) document.querySelectorAll('.dropdown-menu').forEach(m=>m.classList.remove('open'));
 });
 
 window.openModal = (id) => document.getElementById(id).classList.add('open');
 window.closeModal = (id) => document.getElementById(id).classList.remove('open');
-document.querySelectorAll('.modal-overlay').forEach(o => {
-  o.addEventListener('click', (e) => { if (e.target === o) o.classList.remove('open'); });
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',(e)=>{if(e.target===o)o.classList.remove('open');});
 });
 
-window.showProfileCard = (e) => {
-  if (!currentUser) return;
-  const name = currentUser.displayName || currentUser.email?.split('@')[0] || 'Utilisateur';
-  showProfileCardById(currentUser.uid, name, currentUser.email || '', e);
-};
-
-window.showProfileCardById = (uid, name, email, e) => {
-  const card = document.getElementById('profileCard');
-  const av = document.getElementById('pcAvatar');
-  av.textContent = name.charAt(0).toUpperCase();
-  av.style.background = `hsl(${uid.charCodeAt(0)*5%360},40%,40%)`;
-  document.getElementById('pcName').textContent = name;
-  document.getElementById('pcEmail').textContent = email;
-  const rect = e.target.getBoundingClientRect();
-  card.style.left = Math.min(rect.left, window.innerWidth - 260) + 'px';
-  card.style.top = Math.min(rect.bottom + 8, window.innerHeight - 160) + 'px';
-  card.classList.add('open');
-  e.stopPropagation();
-};
-
-window.showToast = (msg, type = '') => {
+window.showToast = (msg, type='') => {
   const wrap = document.getElementById('toastWrap');
   const t = document.createElement('div');
   t.className = `toast ${type}`;
-  const icons = {
-    success: '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',
-    error: '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>',
-  };
-  t.innerHTML = (icons[type] || '') + msg;
+  const icons = {success:'<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>',error:'<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>'};
+  t.innerHTML=(icons[type]||'')+msg;
   wrap.appendChild(t);
-  setTimeout(() => { t.style.opacity='0'; t.style.transform='translateY(8px)'; t.style.transition='all .3s'; setTimeout(()=>t.remove(),300); }, 3000);
+  setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(8px)';t.style.transition='all .3s';setTimeout(()=>t.remove(),300);},3000);
 };
 
-function showError(msg) { const el=document.getElementById('loginError'); el.textContent=msg; el.classList.add('show'); }
-function hideError() { document.getElementById('loginError').classList.remove('show'); }
-function escapeHtml(text) { return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function showError(msg){const el=document.getElementById('loginError');el.textContent=msg;el.classList.add('show');}
+function hideError(){document.getElementById('loginError').classList.remove('show');}
+function escHtml(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 </script>
 </body>
 </html>
