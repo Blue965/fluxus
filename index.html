@@ -500,14 +500,62 @@ img{display:block}
 
 /* RESPONSIVE */
 @media(max-width:680px){
-  .sidebar{width:56px}
-  .sidebar.wide{width:56px}
-  .sb-logo-txt,.sbi-lbl,.av-inf{display:none!important;opacity:0!important}
-  .chat-sidebar{width:100%}
-  .chat-main-area{display:none}
+  /* Sidebar fixe en bas sur mobile */
+  .sidebar{
+    position:fixed;bottom:0;left:0;right:0;top:auto;
+    width:100%!important;height:56px;
+    flex-direction:row;align-items:center;justify-content:space-around;
+    padding:0 6px;border-right:none;border-top:1px solid var(--border);
+    z-index:50;overflow:visible;
+  }
+  .sidebar.wide{width:100%!important;height:56px}
+  .sb-logo-row{display:none!important}
+  .sb-sec-lbl{display:none!important}
+  .sb-sec{display:contents}
+  .sbi{width:44px;height:44px;padding:0;border-radius:50%;justify-content:center;flex-shrink:0}
+  .sbi-lbl{display:none!important;opacity:0!important}
+  .sbi-badge{top:3px;right:3px;width:6px;height:6px;padding:0;font-size:0;border-radius:50%}
+  .sidebar.wide .sbi-badge{position:absolute;width:6px;height:6px;padding:0;font-size:0;border-radius:50%}
+  .sb-spacer{display:none!important}
+  .sb-av-btn{width:44px;height:44px;padding:0;border-radius:50%;justify-content:center;flex-shrink:0}
+  .av-inf{display:none!important;opacity:0!important}
+
+  /* Main content avec padding bas pour la navbar */
+  .main{padding-bottom:60px}
+  #appScreen{flex-direction:column}
+
+  /* Chat sur mobile */
+  .chat-layout{flex-direction:column;height:calc(100vh - 52px - 60px)}
+  .chat-sidebar{width:100%;display:flex;flex-direction:column}
+  .chat-main-area{display:none;position:fixed;inset:0;z-index:40;background:var(--bg);flex-direction:column}
+  .chat-main-area.open{display:flex}
   .chat-sidebar.hidden{display:none}
-  .p-grid{grid-template-columns:repeat(3,1fr)}
-  .feed-wrap,.search-wrap,.notifs-wrap,.groups-wrap,.badges-wrap{padding-left:10px;padding-right:10px}
+
+  /* Profil sur mobile — mieux adapté */
+  .p-banner{height:120px}
+  .p-main-av{width:62px;height:62px;font-size:20px}
+  .p-name{font-size:16px}
+  .p-bio{font-size:13px}
+  .p-stats{gap:14px}
+  .ps-n{font-size:14px}
+  .p-grid{grid-template-columns:repeat(3,1fr);gap:1px}
+  .p-info{padding:0 12px 14px}
+  .p-av-row{margin-top:-22px}
+  .profile-wrap{max-width:100%}
+
+  /* Grids et padding */
+  .feed-wrap,.search-wrap,.notifs-wrap,.groups-wrap,.badges-wrap{padding-left:10px;padding-right:10px;padding-bottom:20px}
+  .badges-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* Reels plein écran */
+  .reels-wrap{height:calc(100vh - 52px - 60px)}
+  .reel{height:calc(100vh - 52px - 60px)}
+
+  /* Composer moins haut */
+  .comp-ta{font-size:14px}
+
+  /* Dropdown menus vers le haut sur mobile */
+  .dd.right{right:0;left:auto}
 }
 </style>
 </head>
