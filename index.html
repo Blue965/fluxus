@@ -1437,15 +1437,61 @@ window.switchPTab=(tab,uid)=>{
 window.viewProfile=async(uid)=>{goPage('Profile',null);await loadProfilePage(uid);};
 window.toggleFollow=async(uid)=>{
   if(!ME||uid===ME.uid)return;
-  const myRef=doc(db,'users',ME.uid);const theirRef=doc(db,'users',uid);
-  const mySnap=await getDoc(myRef);const isFolNow=!(mySnap.data()?.following||[]).includes(uid);
-  if(isFolNow){
-    await updateDoc(myRef,{following:arrayUnion(uid)});await updateDoc(theirRef,{followers:arrayUnion(ME.uid)});
-    await addDoc(collection(db,'notifications'),{toUid:uid,fromUid:ME.uid,fromName:PROF.name||ME.displayName,fromPhoto:PROF.photoURL||ME.photoURL||null,type:'follow',read:false,createdAt:serverTimestamp()});
-    toast('Abonné !','success');await giveXP(20,'social');
-  }else{await updateDoc(myRef,{following:arrayRemove(uid)});await updateDoc(theirRef,{followers:arrayRemove(ME.uid)});toast('Désabonné','');}
-  const btn=document.getElementById('fpBtn-'+uid);if(btn){btn.classList.toggle('following',isFolNow);btn.textContent=isFolNow?'Abonné':'Suivre';}
-  const snap=await getDoc(doc(db,'users',ME.uid));PROF=snap.data()||PROF;
+  try {
+    const myRef=doc(db,'users',ME.uid);
+    const mySnap=await getDoc(myRef);
+    const myData=mySnap.data()||{};
+    const isFolNow=!(myData.following||[]).includes(uid);
+
+    // Mettre à jour uniquement MON profil (following) — règles Firebase l'autorisent
+    if(isFolNow){
+      await updateDoc(myRef,{following:arrayUnion(uid)});
+    } else {
+      await updateDoc(myRef,{following:arrayRemove(uid)});
+    }
+
+    // Mettre à jour leur profil (followers) via une transaction séparée
+    try {
+      const theirRef=doc(db,'users',uid);
+      if(isFolNow){
+        await updateDoc(theirRef,{followers:arrayUnion(ME.uid)});
+      } else {
+        await updateDoc(theirRef,{followers:arrayRemove(ME.uid)});
+      }
+    } catch(e){ console.warn('Followers update failed:', e.message); }
+
+    // Notification
+    if(isFolNow){
+      try {
+        await addDoc(collection(db,'notifications'),{
+          toUid:uid,fromUid:ME.uid,
+          fromName:PROF.name||ME.displayName||'Utilisateur',
+          fromPhoto:PROF.photoURL||ME.photoURL||null,
+          type:'follow',read:false,createdAt:serverTimestamp()
+        });
+      } catch(e){ console.warn('Notif failed:', e.message); }
+      toast('Abonné !','success');
+      await giveXP(20,'social');
+    } else {
+      toast('Désabonné','');
+    }
+
+    // Update bouton dans le profil
+    const btn=document.getElementById('fpBtn-'+uid);
+    if(btn){btn.classList.toggle('following',isFolNow);btn.textContent=isFolNow?'Abonné':'Suivre';}
+
+    // Update bouton dans la recherche
+    const searchBtn=document.querySelector(`.btn-follow[onclick*="${uid}"]`);
+    if(searchBtn){searchBtn.classList.toggle('following',isFolNow);searchBtn.textContent=isFolNow?'Abonné':'Suivre';}
+
+    // Recharger mon profil local
+    const snap=await getDoc(doc(db,'users',ME.uid));
+    PROF=snap.data()||PROF;
+
+  } catch(e){
+    console.error('toggleFollow error:', e);
+    toast('Erreur: '+e.message,'error');
+  }
 };
 window.saveProfile=async()=>{
   const name=document.getElementById('epName').value.trim();
