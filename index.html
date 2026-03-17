@@ -500,62 +500,60 @@ img{display:block}
 
 /* RESPONSIVE */
 @media(max-width:680px){
-  /* Sidebar fixe en bas sur mobile */
-  .sidebar{
-    position:fixed;bottom:0;left:0;right:0;top:auto;
-    width:100%!important;height:56px;
-    flex-direction:row;align-items:center;justify-content:space-around;
-    padding:0 6px;border-right:none;border-top:1px solid var(--border);
-    z-index:50;overflow:visible;
-  }
-  .sidebar.wide{width:100%!important;height:56px}
-  .sb-logo-row{display:none!important}
-  .sb-sec-lbl{display:none!important}
-  .sb-sec{display:contents}
-  .sbi{width:44px;height:44px;padding:0;border-radius:50%;justify-content:center;flex-shrink:0}
-  .sbi-lbl{display:none!important;opacity:0!important}
-  .sbi-badge{top:3px;right:3px;width:6px;height:6px;padding:0;font-size:0;border-radius:50%}
-  .sidebar.wide .sbi-badge{position:absolute;width:6px;height:6px;padding:0;font-size:0;border-radius:50%}
-  .sb-spacer{display:none!important}
-  .sb-av-btn{width:44px;height:44px;padding:0;border-radius:50%;justify-content:center;flex-shrink:0}
-  .av-inf{display:none!important;opacity:0!important}
+  /* Cache la sidebar complètement sur mobile */
+  .sidebar{display:none!important}
 
-  /* Main content avec padding bas pour la navbar */
-  .main{padding-bottom:60px}
+  /* App en colonne */
   #appScreen{flex-direction:column}
 
-  /* Chat sur mobile */
-  .chat-layout{flex-direction:column;height:calc(100vh - 52px - 60px)}
-  .chat-sidebar{width:100%;display:flex;flex-direction:column}
-  .chat-main-area{display:none;position:fixed;inset:0;z-index:40;background:var(--bg);flex-direction:column}
-  .chat-main-area.open{display:flex}
-  .chat-sidebar.hidden{display:none}
+  /* Main prend tout l'espace + padding pour la navbar bas */
+  .main{padding-bottom:62px;width:100%}
 
-  /* Profil sur mobile — mieux adapté */
-  .p-banner{height:120px}
-  .p-main-av{width:62px;height:62px;font-size:20px}
+  /* Navbar fixe en bas */
+  .mobile-bottom-nav{
+    display:flex!important;
+    position:fixed;bottom:0;left:0;right:0;height:58px;
+    background:var(--bg2);border-top:1px solid var(--border);
+    align-items:center;justify-content:space-around;
+    padding:0 4px;z-index:50;
+  }
+  .mbn-btn{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:3px;width:20%;height:100%;border:none;background:none;
+    cursor:pointer;color:var(--text3);transition:color .15s;position:relative;
+  }
+  .mbn-btn.active{color:var(--text)}
+  .mbn-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8}
+  .mbn-label{font-size:10px;font-weight:700}
+  .mbn-dot{position:absolute;top:6px;right:22%;width:7px;height:7px;border-radius:50%;background:var(--red);border:2px solid var(--bg2)}
+
+  /* Profil sur mobile */
+  .p-banner{height:110px}
+  .p-main-av{width:60px;height:60px;font-size:20px}
+  .p-av-row{margin-top:-20px}
+  .p-info{padding:0 12px 12px}
   .p-name{font-size:16px}
   .p-bio{font-size:13px}
   .p-stats{gap:14px}
   .ps-n{font-size:14px}
   .p-grid{grid-template-columns:repeat(3,1fr);gap:1px}
-  .p-info{padding:0 12px 14px}
-  .p-av-row{margin-top:-22px}
   .profile-wrap{max-width:100%}
 
-  /* Grids et padding */
-  .feed-wrap,.search-wrap,.notifs-wrap,.groups-wrap,.badges-wrap{padding-left:10px;padding-right:10px;padding-bottom:20px}
+  /* Padding pages */
+  .feed-wrap,.search-wrap,.notifs-wrap,.groups-wrap,.badges-wrap{
+    padding-left:10px;padding-right:10px;padding-bottom:20px
+  }
   .badges-grid{grid-template-columns:repeat(2,1fr)}
 
-  /* Reels plein écran */
-  .reels-wrap{height:calc(100vh - 52px - 60px)}
-  .reel{height:calc(100vh - 52px - 60px)}
+  /* Reels */
+  .reels-wrap{height:calc(100vh - 52px - 62px)}
+  .reel{height:calc(100vh - 52px - 62px)}
 
-  /* Composer moins haut */
-  .comp-ta{font-size:14px}
-
-  /* Dropdown menus vers le haut sur mobile */
-  .dd.right{right:0;left:auto}
+  /* Chat */
+  .chat-layout{height:calc(100vh - 52px - 62px)}
+  .chat-sidebar{width:100%}
+  .chat-main-area{display:none;position:fixed;inset:0;z-index:40;background:var(--bg);flex-direction:column}
+  .chat-main-area.open{display:flex}
 }
 </style>
 </head>
@@ -789,6 +787,31 @@ img{display:block}
       </div>
     </div>
   </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<div class="mobile-bottom-nav" id="mobileNav" style="display:none">
+  <button class="mbn-btn active" id="mbnFeed" onclick="goPage('Feed',this)">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span class="mbn-label">Feed</span>
+  </button>
+  <button class="mbn-btn" id="mbnReels" onclick="goPage('Reels',this)">
+    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+    <span class="mbn-label">Reels</span>
+  </button>
+  <button class="mbn-btn" id="mbnSearch" onclick="goPage('Search',this)">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <span class="mbn-label">Recherche</span>
+  </button>
+  <button class="mbn-btn" id="mbnNotifs" onclick="goPage('Notifs',this)">
+    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+    <span class="mbn-label">Notifs</span>
+    <span class="mbn-dot" id="mbnNotifDot" style="display:none"></span>
+  </button>
+  <button class="mbn-btn" id="mbnProfile" onclick="goPage('Profile',this)">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span class="mbn-label">Profil</span>
+  </button>
 </div>
 
 <!-- ════ MODALS ════ -->
@@ -1631,6 +1654,15 @@ window.searchForChat=async(val)=>{
 };
 
 // ── UI HELPERS ────────────────────────────
+// Mobile nav visibility
+function checkMobile(){
+  const isMobile = window.innerWidth <= 680;
+  const nav = document.getElementById('mobileNav');
+  if(nav) nav.style.display = isMobile ? 'flex' : 'none';
+}
+checkMobile();
+window.addEventListener('resize', checkMobile);
+
 window.toggleSB=()=>document.getElementById('sidebar').classList.toggle('wide');
 window.toggleTheme=()=>{
   const isL=document.documentElement.hasAttribute('data-theme');
