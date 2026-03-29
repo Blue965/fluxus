@@ -2225,5 +2225,58 @@ console.log('%c⚡ Fluxus v2.1 — AI + Todo + Fixes chargés !','color:#22c55e;
   </div>
 </div>
 
+<script>
+// On récupère la clé stockée dans le navigateur, sinon on demande à l'utilisateur
+let HF_TOKEN = localStorage.getItem('my_hf_token');
+
+if (!HF_TOKEN) {
+    HF_TOKEN = prompt("Veuillez entrer votre clé API Hugging Face (hf_...) :");
+    if (HF_TOKEN) {
+        localStorage.setItem('my_hf_token', HF_TOKEN);
+    }
+}
+
+  const MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"; // Un modèle gratuit et rapide
+
+  async function sendAI() {
+    const input = document.getElementById('aiInp');
+    const messagesDiv = document.getElementById('aiMessages');
+    const prompt = input.value.trim();
+
+    if (!prompt) return;
+
+    // 1. Afficher votre message dans l'interface
+    messagesDiv.innerHTML += `<div style="margin-bottom:10px; color:var(--text2)"><b>Vous:</b> ${prompt}</div>`;
+    input.value = "";
+
+    try {
+      // 2. Appel à l'API Hugging Face
+      const response = await fetch(`https://api-inference.huggingface.co{MODEL_ID}`, {
+        headers: { 
+          "Authorization": `Bearer ${HF_TOKEN}`,
+          "Content-Type": "application/json" 
+        },
+        method: "POST",
+        body: JSON.stringify({ 
+            inputs: prompt,
+            parameters: { max_new_tokens: 250 } 
+        }),
+      });
+
+      const result = await response.json();
+      
+      // 3. Afficher la réponse de l'IA
+      const aiText = result[0]?.generated_text || "Désolé, je n'ai pas pu répondre.";
+      messagesDiv.innerHTML += `<div style="margin-bottom:20px; color:var(--text)"><b>IA:</b> ${aiText}</div>`;
+      
+      // Scroller vers le bas
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+    } catch (error) {
+      messagesDiv.innerHTML += `<div style="color:var(--red)">Erreur: Impossible de contacter l'IA.</div>`;
+    }
+  }
+</script>
+
 </body>
 </html>
