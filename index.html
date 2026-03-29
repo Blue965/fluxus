@@ -2226,10 +2226,9 @@ console.log('%c⚡ Fluxus v2.1 — AI + Todo + Fixes chargés !','color:#22c55e;
 </div>
 
 <script>
-  // Utilise "mistralai/Mistral-7B-Instruct-v0.2" ou "HuggingFaceH4/zephyr-7b-beta"
-  // Ce sont des modèles "Instruct" faits pour discuter.
-  const MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"; 
-  const HF_TOKEN = localStorage.getItem('my_hf_token') || "TON_TOKEN_ICI";
+  // Mets ta clé ici (ou utilise le localStorage)
+  const HF_TOKEN = "TA_CLE_HF_ICI"; 
+  const MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2";
 
   async function sendAI() {
     const input = document.getElementById('aiInp');
@@ -2238,10 +2237,9 @@ console.log('%c⚡ Fluxus v2.1 — AI + Todo + Fixes chargés !','color:#22c55e;
 
     if (!prompt) return;
 
-    // 1. Afficher ton message
-    messagesDiv.innerHTML += `<div style="margin-bottom:10px; color:var(--text2)"><b>Vous:</b> ${prompt}</div>`;
+    // Affiche ton message
+    messagesDiv.innerHTML += `<div style="margin:10px 0; color:var(--text2)"><b>Vous:</b> ${prompt}</div>`;
     input.value = "";
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
     try {
       const response = await fetch(`https://api-inference.huggingface.co{MODEL_ID}`, {
@@ -2251,31 +2249,27 @@ console.log('%c⚡ Fluxus v2.1 — AI + Todo + Fixes chargés !','color:#22c55e;
         },
         method: "POST",
         body: JSON.stringify({ 
-            inputs: `<s>[INST] ${prompt} [/INST]`, // Format spécial pour que l'IA comprenne que c'est une instruction
-            parameters: { 
-                max_new_tokens: 500,
-                return_full_text: false // IMPORTANT : pour ne pas qu'elle répète ta question
-            } 
+          inputs: `<s>[INST] ${prompt} [/INST]`,
+          parameters: { max_new_tokens: 250, return_full_text: false }
         }),
       });
 
       const result = await response.json();
       
-      // Nettoyage de la réponse
+      // On extrait le texte (Hugging Face renvoie souvent un tableau [0])
       let aiText = "";
       if (Array.isArray(result)) {
-          aiText = result[0].generated_text;
+        aiText = result[0].generated_text;
       } else {
-          aiText = result.generated_text || "Erreur de format de réponse.";
+        aiText = result.generated_text || "Désolé, je ne comprends pas.";
       }
 
-      // 2. Afficher la réponse proprement
-      messagesDiv.innerHTML += `<div style="margin-bottom:20px; color:var(--text); background: var(--accentbg); padding: 10px; border-radius: 8px;"><b>Fluxus AI:</b> ${aiText.trim()}</div>`;
+      // Affiche la VRAIE réponse de l'IA
+      messagesDiv.innerHTML += `<div style="margin:15px 0; padding:10px; background:var(--bg3); border-radius:8px; border:1px solid var(--border)"><b>Fluxus AI:</b> ${aiText}</div>`;
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
     } catch (error) {
-        console.error(error);
-        messagesDiv.innerHTML += `<div style="color:var(--red)">Erreur: Vérifiez votre clé API ou votre connexion.</div>`;
+      messagesDiv.innerHTML += `<div style="color:var(--red)">Erreur de connexion à l'IA.</div>`;
     }
   }
 </script>
