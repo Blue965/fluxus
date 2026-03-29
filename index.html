@@ -2112,19 +2112,55 @@ window.useAIShortcut = (k) => {
   const t = pm[k]; if (t) { const inp=document.getElementById('aiInp'); if(inp){inp.value=t;sendAI();} }
 };
 window.sendAI = async () => {
-  const inp = document.getElementById('aiInp'); const text = inp?.value?.trim(); if (!text) return;
-  inp.value = ''; _aiMsg(_esc2(text),'user'); _aiTyping(true);
+  const inp = document.getElementById('aiInp');
+  const text = inp?.value?.trim();
+  if (!text) return;
+  inp.value = '';
+  _aiMsg(text.replace(/</g,'&lt;').replace(/>/g,'&gt;'), 'user');
+  _aiTyping(true);
   document.getElementById('aiSendBtn').disabled = true;
-  await new Promise(r => setTimeout(r, 500 + Math.random()*500));
-  const lq = text.toLowerCase(); let reply = null;
-  for (const e of AI_KB) { if (e.m(lq)) { reply = e.r(); break; } }
-  if (!reply) reply = await _claude(text);
-  if (!reply) { const fb = ['Bonne question ! 🤔 Essaie les <strong>raccourcis rapides</strong> ci-dessus pour ce que je fais de mieux !','Hmm... 💭 Je suis meilleur avec des questions sur <strong>Roblox</strong>, tes <strong>tâches</strong> ou tes <strong>idées de posts</strong> !','Je note ! 📝 Pour de meilleures réponses, sois plus précis ou utilise les <strong>raccourcis</strong> !']; reply = fb[Math.floor(Math.random()*fb.length)]; }
-  _aiTyping(false); _aiMsg(reply,'bot');
-  document.getElementById('aiSendBtn').disabled = false; document.getElementById('aiInp')?.focus();
+  await new Promise(r => setTimeout(r, 420 + Math.random()*380));
+
+  // 1. Check base de connaissances locale (rapide, toujours dispo)
+  const lq = text.toLowerCase();
+  let reply = null;
+  for (const e of AI_KB) {
+    if (e.m(lq)) { reply = e.r(); break; }
+  }
+
+  // 2. Si pas de réponse locale, appeler le serveur proxy HF
+  if (!reply) {
+    try {
+      const r = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text })
+      });
+      if (r.ok) {
+        const d = await r.json();
+        if (d.reply) reply = d.reply.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+        if (d.error === 'loading') reply = "⏳ L'IA démarre, réessaie dans 20 secondes !";
+      }
+    } catch(e) {
+      console.warn('AI proxy not available:', e.message);
+    }
+  }
+
+  // 3. Fallback si rien ne marche
+  if (!reply) {
+    const fb = [
+      "Bonne question ! 🤔 Essaie les <strong>raccourcis rapides</strong> ci-dessus !",
+      "Je suis meilleur sur <strong>Roblox</strong>, tes <strong>tâches</strong> ou tes <strong>idées de posts</strong> !",
+      "Lance le serveur proxy pour des réponses IA complètes ! <code>node server.js</code> 🚀"
+    ];
+    reply = fb[Math.floor(Math.random()*fb.length)];
+  }
+
+  _aiTyping(false);
+  _aiMsg(reply, 'bot');
+  document.getElementById('aiSendBtn').disabled = false;
+  document.getElementById('aiInp')?.focus();
 };
-window.setAIKey = k => { localStorage.setItem('flx_ai_key',k); window.toast&&toast('Clé AI sauvegardée !','success'); };
-document.addEventListener('click', e => { const p=document.getElementById('aiPanel'),f=document.getElementById('aiFab'); if(_aiOpen&&p&&f&&!p.contains(e.target)&&!f.contains(e.target)){_aiOpen=false;p.classList.remove('open');} });
 
 // ══════════════════════════════════════════════════════════════
 // BUG FIXES
@@ -2187,7 +2223,7 @@ console.log('%c⚡ Fluxus v2.1 — AI + Todo + Fixes chargés !','color:#22c55e;
 </script>
 
 <!-- SIDEBAR OVERLAY -->
-<div class="sb-overlay" id="sbOverlay" onclick="closeSBMobile()"></div>
+<div class="sb-overlay" id="sbOverlay" onclick="_closeSBMobile()"></div>
 
 <!-- AI FAB -->
 <button class="ai-fab" id="aiFab" onclick="toggleAI()" title="Fluxus AI (IA)">
@@ -2224,56 +2260,6 @@ console.log('%c⚡ Fluxus v2.1 — AI + Todo + Fixes chargés !','color:#22c55e;
     </button>
   </div>
 </div>
-
-<script>
-  // Mets ta clé ici (ou utilise le localStorage)
-  const HF_TOKEN = "TA_CLE_HF_ICI"; 
-  const MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2";
-
-  async function sendAI() {
-    const input = document.getElementById('aiInp');
-    const messagesDiv = document.getElementById('aiMessages');
-    const prompt = input.value.trim();
-
-    if (!prompt) return;
-
-    // Affiche ton message
-    messagesDiv.innerHTML += `<div style="margin:10px 0; color:var(--text2)"><b>Vous:</b> ${prompt}</div>`;
-    input.value = "";
-
-    try {
-      const response = await fetch(`https://api-inference.huggingface.co{MODEL_ID}`, {
-        headers: { 
-          "Authorization": `Bearer ${HF_TOKEN}`,
-          "Content-Type": "application/json" 
-        },
-        method: "POST",
-        body: JSON.stringify({ 
-          inputs: `<s>[INST] ${prompt} [/INST]`,
-          parameters: { max_new_tokens: 250, return_full_text: false }
-        }),
-      });
-
-      const result = await response.json();
-      
-      // On extrait le texte (Hugging Face renvoie souvent un tableau [0])
-      let aiText = "";
-      if (Array.isArray(result)) {
-        aiText = result[0].generated_text;
-      } else {
-        aiText = result.generated_text || "Désolé, je ne comprends pas.";
-      }
-
-      // Affiche la VRAIE réponse de l'IA
-      messagesDiv.innerHTML += `<div style="margin:15px 0; padding:10px; background:var(--bg3); border-radius:8px; border:1px solid var(--border)"><b>Fluxus AI:</b> ${aiText}</div>`;
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
-    } catch (error) {
-      messagesDiv.innerHTML += `<div style="color:var(--red)">Erreur de connexion à l'IA.</div>`;
-    }
-  }
-</script>
-
 
 </body>
 </html>

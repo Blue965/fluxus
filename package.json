@@ -1,0 +1,13 @@
+{
+  "name": "fluxus-server",
+  "version": "1.0.0",
+  "description": "Fluxus — Serveur proxy pour l'IA Hugging Face",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
