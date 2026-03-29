@@ -2226,17 +2226,10 @@ console.log('%c⚡ Fluxus v2.1 — AI + Todo + Fixes chargés !','color:#22c55e;
 </div>
 
 <script>
-// On récupère la clé stockée dans le navigateur, sinon on demande à l'utilisateur
-let HF_TOKEN = localStorage.getItem('my_hf_token');
-
-if (!HF_TOKEN) {
-    HF_TOKEN = prompt("Veuillez entrer votre clé API Hugging Face (hf_...) :");
-    if (HF_TOKEN) {
-        localStorage.setItem('my_hf_token', HF_TOKEN);
-    }
-}
-
-  const MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"; // Un modèle gratuit et rapide
+  // Utilise "mistralai/Mistral-7B-Instruct-v0.2" ou "HuggingFaceH4/zephyr-7b-beta"
+  // Ce sont des modèles "Instruct" faits pour discuter.
+  const MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"; 
+  const HF_TOKEN = localStorage.getItem('my_hf_token') || "TON_TOKEN_ICI";
 
   async function sendAI() {
     const input = document.getElementById('aiInp');
@@ -2245,12 +2238,12 @@ if (!HF_TOKEN) {
 
     if (!prompt) return;
 
-    // 1. Afficher votre message dans l'interface
+    // 1. Afficher ton message
     messagesDiv.innerHTML += `<div style="margin-bottom:10px; color:var(--text2)"><b>Vous:</b> ${prompt}</div>`;
     input.value = "";
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
     try {
-      // 2. Appel à l'API Hugging Face
       const response = await fetch(`https://api-inference.huggingface.co{MODEL_ID}`, {
         headers: { 
           "Authorization": `Bearer ${HF_TOKEN}`,
@@ -2258,25 +2251,35 @@ if (!HF_TOKEN) {
         },
         method: "POST",
         body: JSON.stringify({ 
-            inputs: prompt,
-            parameters: { max_new_tokens: 250 } 
+            inputs: `<s>[INST] ${prompt} [/INST]`, // Format spécial pour que l'IA comprenne que c'est une instruction
+            parameters: { 
+                max_new_tokens: 500,
+                return_full_text: false // IMPORTANT : pour ne pas qu'elle répète ta question
+            } 
         }),
       });
 
       const result = await response.json();
       
-      // 3. Afficher la réponse de l'IA
-      const aiText = result[0]?.generated_text || "Désolé, je n'ai pas pu répondre.";
-      messagesDiv.innerHTML += `<div style="margin-bottom:20px; color:var(--text)"><b>IA:</b> ${aiText}</div>`;
-      
-      // Scroller vers le bas
+      // Nettoyage de la réponse
+      let aiText = "";
+      if (Array.isArray(result)) {
+          aiText = result[0].generated_text;
+      } else {
+          aiText = result.generated_text || "Erreur de format de réponse.";
+      }
+
+      // 2. Afficher la réponse proprement
+      messagesDiv.innerHTML += `<div style="margin-bottom:20px; color:var(--text); background: var(--accentbg); padding: 10px; border-radius: 8px;"><b>Fluxus AI:</b> ${aiText.trim()}</div>`;
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
     } catch (error) {
-      messagesDiv.innerHTML += `<div style="color:var(--red)">Erreur: Impossible de contacter l'IA.</div>`;
+        console.error(error);
+        messagesDiv.innerHTML += `<div style="color:var(--red)">Erreur: Vérifiez votre clé API ou votre connexion.</div>`;
     }
   }
 </script>
+
 
 </body>
 </html>
