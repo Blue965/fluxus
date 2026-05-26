@@ -1,0 +1,218 @@
+/* ════════════════════════════════════════
+   AMÉLIORATIONS FLUXUS - Animations & UX
+════════════════════════════════════════ */
+
+/* Nouvelles animations */
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes glow{0%,100%{box-shadow:0 0 5px rgba(255,255,255,.1)}50%{box-shadow:0 0 20px rgba(255,255,255,.2)}}
+@keyframes ripple{0%{transform:scale(0);opacity:1}100%{transform:scale(4);opacity:0}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* Amélioration des boutons avec effet de glow au hover */
+.btn-google:hover,.btn-main:hover,.comp-submit:hover,.btn-join:hover,.btn-follow:hover{
+  animation:glow 1.5s ease-in-out infinite
+}
+
+/* Effet shimmer sur les cartes pendant le chargement */
+.post,.group-card,.user-row{
+  position:relative;
+  overflow:hidden
+}
+.post::before,.group-card::before,.user-row::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.03),transparent);
+  animation:shimmer 3s infinite;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .3s
+}
+.post:hover::before,.group-card:hover::before,.user-row:hover::before{
+  opacity:1
+}
+
+/* Amélioration des avatars avec effet de pulse */
+.av,.post-av,.story-av,.chat-room-av,.cmt-av{
+  transition:transform .2s,box-shadow .2s
+}
+.av:hover,.post-av:hover,.story-av:hover,.chat-room-av:hover,.cmt-av:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 0 3px rgba(255,255,255,.1)
+}
+
+/* Effet de bounce sur les boutons d'action */
+.pa,.comp-btn,.reel-btn{
+  transition:transform .15s
+}
+.pa:active,.comp-btn:active,.reel-btn:active{
+  transform:scale(.95)
+}
+
+/* Amélioration des inputs avec focus glow */
+.fi:focus,.mfi:focus,.search-inp:focus,.cmt-input:focus,.chat-input-field:focus,.todo-text-inp:focus,.ai-inp:focus{
+  box-shadow:0 0 0 3px rgba(255,255,255,.05)
+}
+
+/* Animation d'entrée pour les stories */
+.story-item{
+  animation:float 3s ease-in-out infinite
+}
+.story-item:nth-child(2){animation-delay:.5s}
+.story-item:nth-child(3){animation-delay:1s}
+.story-item:nth-child(4){animation-delay:1.5s}
+.story-item:nth-child(5){animation-delay:2s}
+
+/* Effet de ripple sur les boutons principaux */
+.btn-main,.comp-submit,.btn-join{
+  position:relative;
+  overflow:hidden
+}
+.btn-main::after,.comp-submit::after,.btn-join::after{
+  content:'';
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:0;
+  height:0;
+  background:rgba(255,255,255,.2);
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  transition:width .3s,height .3s
+}
+.btn-main:active::after,.comp-submit:active::after,.btn-join:active::after{
+  width:200px;
+  height:200px;
+  animation:ripple .4s ease-out
+}
+
+/* Amélioration de la sidebar */
+.sbi{
+  position:relative
+}
+.sbi::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:50%;
+  transform:translateY(-50%);
+  width:3px;
+  height:0;
+  background:var(--text);
+  border-radius:2px;
+  transition:height .2s
+}
+.sbi:hover::before,.sbi.active::before{
+  height:20px
+}
+
+/* Effet de glow sur le FAB AI */
+.ai-fab{
+  animation:glow 2s ease-in-out infinite
+}
+.ai-fab:hover{
+  animation:pulse 1s ease-in-out infinite
+}
+
+/* Amélioration des badges */
+.badge-card{
+  transition:transform .2s,box-shadow .2s
+}
+.badge-card.unlocked:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(0,0,0,.3)
+}
+
+/* Effet de shimmer sur les todo cards */
+.todo-card{
+  position:relative;
+  overflow:hidden
+}
+.todo-card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.02),transparent);
+  animation:shimmer 2.5s infinite;
+  pointer-events:none
+}
+
+/* Amélioration des notifications */
+.notif-item{
+  transition:transform .2s,background .2s
+}
+.notif-item:hover{
+  transform:translateX(4px)
+}
+
+/* Effet de bounce sur les messages AI */
+.ai-msg{
+  animation:fadeUp .3s ease
+}
+
+/* Amélioration des dropdowns */
+.dd{
+  animation:popIn .2s ease
+}
+
+/* Effet de glow sur les tabs */
+.ptab,.stab,.todo-filter-btn{
+  position:relative;
+  transition:all .2s
+}
+.ptab:hover,.stab:hover,.todo-filter-btn:hover{
+  text-shadow:0 0 8px rgba(255,255,255,.3)
+}
+
+/* Animation pour les reels */
+.reel-btn{
+  transition:transform .15s
+}
+.reel-btn:hover{
+  transform:scale(1.1)
+}
+.reel-btn.liked{
+  animation:bounce .5s ease
+}
+
+/* Amélioration des modals */
+.modal{
+  animation:popIn .3s cubic-bezier(.34,1.56,.64,1)
+}
+
+/* Effet de shimmer sur les empty states */
+.empty svg{
+  animation:pulse 2s ease-in-out infinite
+}
+
+/* Amélioration des toasts */
+.toast{
+  animation:fadeUp .3s cubic-bezier(.34,1.56,.64,1)
+}
+
+/* Effet de glow sur le logo */
+.l-brand-icon,.sb-logo-icon{
+  transition:transform .2s
+}
+.l-brand-icon:hover,.sb-logo-icon:hover{
+  transform:rotate(180deg)
+}
+
+/* Amélioration des checkboxes todo */
+.todo-cb{
+  transition:all .2s
+}
+.todo-cb:hover{
+  transform:scale(1.1)
+}
+.todo-cb.checked{
+  animation:bounce .3s ease
+}

@@ -1,0 +1,512 @@
+/* ══════════════════════════════════════════════════════════════
+   ULTRA AMÉLIORATIONS FLUXUS - CSS
+══════════════════════════════════════════════════════════════ */
+
+/* ── VOICE MESSAGE BUTTON ─────────────────────────────────── */
+.voice-record-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border2);
+  background: var(--bg3);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.voice-record-btn:hover {
+  background: var(--bg4);
+  border-color: var(--border3);
+  transform: scale(1.05);
+}
+
+.voice-record-btn.recording {
+  background: var(--red);
+  border-color: var(--red);
+  animation: pulse 1s infinite;
+}
+
+.voice-record-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--text2);
+  fill: none;
+  stroke-width: 2;
+}
+
+.voice-record-btn.recording svg {
+  stroke: white;
+}
+
+.recording-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
+
+/* ── VOICE MESSAGE IN CHAT ───────────────────────────────── */
+.chat-msg-voice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--bg3);
+  border-radius: var(--r);
+  border: 1px solid var(--border2);
+}
+
+.chat-msg-voice audio {
+  flex: 1;
+  height: 32px;
+}
+
+.chat-msg-voice .voice-duration {
+  font-size: 11px;
+  color: var(--text3);
+  font-weight: 600;
+}
+
+/* ── WIDGET GRID ─────────────────────────────────────────── */
+.widget-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.widget-card {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.widget-card:hover {
+  border-color: var(--border3);
+  box-shadow: var(--sh);
+  transform: translateY(-2px);
+}
+
+.widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border2);
+  background: var(--bg4);
+}
+
+.widget-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.widget-remove {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: var(--bg3);
+  border-radius: var(--rsm);
+  color: var(--text3);
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+
+.widget-remove:hover {
+  background: var(--red);
+  color: white;
+}
+
+.widget-content {
+  padding: 14px;
+}
+
+.widget-empty {
+  font-size: 12px;
+  color: var(--text3);
+  text-align: center;
+  padding: 20px;
+}
+
+/* ── MINI STATS WIDGET ───────────────────────────────────── */
+.mini-stats {
+  display: flex;
+  gap: 12px;
+}
+
+.mini-stat {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  background: var(--bg4);
+  border-radius: var(--rsm);
+}
+
+.mini-stat-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+  font-family: var(--font-d);
+}
+
+.mini-stat-label {
+  font-size: 10px;
+  color: var(--text3);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── TODO WIDGET ──────────────────────────────────────────── */
+.widget-todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.widget-todo-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.widget-todo-item input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.widget-action-btn {
+  width: 100%;
+  padding: 8px;
+  background: var(--accentbg);
+  border: 1px solid var(--border2);
+  border-radius: var(--rsm);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.widget-action-btn:hover {
+  background: var(--accentbg2);
+  border-color: var(--border3);
+}
+
+/* ── ACTIVITY WIDGET ───────────────────────────────────────── */
+.widget-activity {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text2);
+}
+
+.activity-icon {
+  font-size: 14px;
+}
+
+/* ── SUGGESTIONS WIDGET ──────────────────────────────────── */
+.widget-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.suggestion-mini {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg4);
+  border-radius: var(--rsm);
+  font-size: 12px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.suggestion-mini:hover {
+  background: var(--accentbg);
+  transform: translateX(4px);
+}
+
+/* ── QUICK POST WIDGET ───────────────────────────────────── */
+.widget-quick-post {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid var(--border2);
+  background: var(--bg4);
+  border-radius: var(--rsm);
+  color: var(--text);
+  font-size: 12px;
+  outline: none;
+  transition: border 0.15s;
+}
+
+.widget-quick-post:focus {
+  border-color: var(--border3);
+}
+
+/* ── NOTIFICATIONS WIDGET ─────────────────────────────────── */
+.widget-notifs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.notif-mini {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  background: var(--bg4);
+  border-radius: var(--rsm);
+  font-size: 12px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.notif-mini:hover {
+  background: var(--accentbg);
+}
+
+/* ── WIDGET ADD MENU ──────────────────────────────────────── */
+.widget-add-menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+}
+
+.widget-add-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  background: var(--bg3);
+  border: 1.5px solid var(--border2);
+  border-radius: var(--rsm);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.widget-add-btn:hover {
+  background: var(--bg4);
+  border-color: var(--border3);
+  transform: translateY(-2px);
+}
+
+.widget-icon {
+  font-size: 20px;
+}
+
+.widget-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text2);
+}
+
+/* ── THEME PICKER MODAL ───────────────────────────────────── */
+.theme-picker-modal {
+  max-width: 500px;
+}
+
+.theme-presets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.theme-preset-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: var(--bg3);
+  border: 1.5px solid var(--border2);
+  border-radius: var(--r);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.theme-preset-btn:hover {
+  border-color: var(--border3);
+  transform: scale(1.05);
+}
+
+.theme-preview {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--r);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-accent {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+}
+
+.theme-preset-btn span {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.custom-theme-section {
+  padding: 16px;
+  background: var(--bg3);
+  border-radius: var(--r);
+  margin-bottom: 16px;
+}
+
+.color-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.color-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.color-input-group label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+}
+
+.color-input-group input[type="color"] {
+  width: 100%;
+  height: 40px;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--rsm);
+  background: var(--bg4);
+  cursor: pointer;
+  padding: 2px;
+}
+
+/* ── SHORTCUT EDITOR MODAL ─────────────────────────────────── */
+.shortcut-editor-modal {
+  max-width: 450px;
+}
+
+.shortcut-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.shortcut-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--rsm);
+}
+
+.shortcut-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.shortcut-key {
+  padding: 6px 12px;
+  background: var(--bg4);
+  border: 1.5px solid var(--border2);
+  border-radius: var(--rsm);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.shortcut-key:hover {
+  border-color: var(--border3);
+  background: var(--accentbg);
+}
+
+/* ── THEME INDICATOR ──────────────────────────────────────── */
+.custom-theme-indicator {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text3);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: fadeUp 0.5s ease;
+}
+
+.custom-theme-indicator svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--text3);
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .widget-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .theme-presets {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .color-inputs {
+    grid-template-columns: 1fr;
+  }
+  
+  .widget-add-menu {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
