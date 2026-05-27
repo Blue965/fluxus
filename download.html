@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Télécharger Fluxus - App Desktop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@500;600;700&family=Cabinet+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    :root{
+      --bg:#000;--bg2:#0a0a0a;--bg3:#111;--bg4:#171717;--bg5:#1c1c1c;
+      --border:#1a1a1a;--border2:#262626;--border3:#333;
+      --text:#fff;--text2:#888;--text3:#444;
+      --accentbg:rgba(255,255,255,0.05);--accentbg2:rgba(255,255,255,0.08);
+      --green:#22c55e;--red:#ef4444;--blue:#3b82f6;--gold:#f59e0b;
+      --r:14px;--rsm:8px;--rlg:20px;
+      --font:'Cabinet Grotesk',sans-serif;
+      --font-d:'Clash Display',sans-serif;
+      --sh:0 4px 24px rgba(0,0,0,0.8);--sh-lg:0 8px 48px rgba(0,0,0,0.9);
+    }
+    body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    
+    /* Hero Section */
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 30%,rgba(99,102,241,0.15) 0%,transparent 50%),radial-gradient(circle at 70% 70%,rgba(236,72,153,0.1) 0%,transparent 50%);animation:rotate 20s linear infinite}
+    @keyframes rotate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    
+    .hero-content{position:relative;z-index:1;padding:40px}
+    .hero-logo{font-family:var(--font-d);font-size:80px;font-weight:700;margin-bottom:20px;background:linear-gradient(135deg,#fff 0%,#888 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:float 3s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+    
+    .hero-tagline{font-size:24px;color:var(--text2);margin-bottom:40px;font-weight:500}
+    .hero-tagline span{color:var(--green);font-weight:700}
+    
+    .download-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+    .download-btn{display:flex;align-items:center;gap:12px;padding:16px 32px;background:var(--bg3);border:2px solid var(--border2);border-radius:var(--rlg);color:var(--text);font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s;text-decoration:none}
+    .download-btn:hover{background:var(--bg4);border-color:var(--border3);transform:translateY(-4px);box-shadow:var(--sh)}
+    .download-btn.primary{background:var(--green);border-color:var(--green);color:#000}
+    .download-btn.primary:hover{background:#16a34a;border-color:#16a34a}
+    .download-btn svg{width:24px;height:24px}
+    
+    .platform-icons{display:flex;gap:20px;justify-content:center;margin-bottom:40px}
+    .platform-icon{width:48px;height:48px;background:var(--bg3);border:2px solid var(--border2);border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:24px;transition:all 0.3s}
+    .platform-icon:hover{border-color:var(--border3);transform:scale(1.1)}
+    
+    /* Features Section */
+    .features{padding:100px 0;background:var(--bg2)}
+    .features h2{font-family:var(--font-d);font-size:48px;font-weight:700;text-align:center;margin-bottom:60px}
+    .features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
+    .feature-card{padding:30px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--rlg);transition:all 0.3s}
+    .feature-card:hover{border-color:var(--border3);transform:translateY(-8px);box-shadow:var(--sh)}
+    .feature-icon{font-size:48px;margin-bottom:20px}
+    .feature-title{font-family:var(--font-d);font-size:20px;font-weight:700;margin-bottom:12px}
+    .feature-desc{color:var(--text2);font-size:14px;line-height:1.6}
+    
+    /* Comparison Section */
+    .comparison{padding:100px 0}
+    .comparison h2{font-family:var(--font-d);font-size:48px;font-weight:700;text-align:center;margin-bottom:60px}
+    .comparison-table{width:100%;border-collapse:collapse}
+    .comparison-table th,.comparison-table td{padding:20px;text-align:left;border-bottom:1px solid var(--border2)}
+    .comparison-table th{font-family:var(--font-d);font-size:18px;font-weight:700}
+    .comparison-table .fluxus-col{background:var(--accentbg);border-left:3px solid var(--green)}
+    .comparison-table .check{color:var(--green);font-size:20px}
+    .comparison-table .cross{color:var(--red);font-size:20px}
+    
+    /* System Requirements */
+    .requirements{padding:100px 0;background:var(--bg2)}
+    .requirements h2{font-family:var(--font-d);font-size:48px;font-weight:700;text-align:center;margin-bottom:60px}
+    .requirements-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
+    .req-card{padding:30px;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--rlg)}
+    .req-title{font-family:var(--font-d);font-size:20px;font-weight:700;margin-bottom:16px}
+    .req-list{list-style:none}
+    .req-list li{padding:8px 0;color:var(--text2);display:flex;align-items:center;gap:8px}
+    .req-list li::before{content:'✓';color:var(--green);font-weight:700}
+    
+    /* Footer */
+    .footer{padding:40px 0;background:var(--bg3);border-top:1px solid var(--border2);text-align:center}
+    .footer-links{display:flex;gap:20px;justify-content:center;margin-bottom:20px}
+    .footer-links a{color:var(--text2);text-decoration:none;transition:color 0.3s}
+    .footer-links a:hover{color:var(--text)}
+    .footer-copy{color:var(--text3);font-size:14px}
+    
+    /* Responsive */
+    @media(max-width:768px){
+      .hero-logo{font-size:48px}
+      .hero-tagline{font-size:18px}
+      .download-buttons{flex-direction:column}
+      .comparison-table{font-size:14px}
+      .comparison-table th,.comparison-table td{padding:12px}
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-logo">Fluxus</div>
+      <p class="hero-tagline">La plateforme sociale <span>ultime</span> pour gamers et créateurs</p>
+      
+      <div class="download-buttons">
+        <a href="#" class="download-btn primary">
+          <svg viewBox="0 0 24 24"><path d="M20 5H4L2 20h20L20 5zm-9 12v-6h2v6h3l-4 4-4-4h3z"/></svg>
+          Windows
+        </a>
+        <a href="#" class="download-btn">
+          <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          macOS
+        </a>
+        <a href="#" class="download-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          Linux
+        </a>
+      </div>
+      
+      <div class="platform-icons">
+        <div class="platform-icon" title="Windows">🪟</div>
+        <div class="platform-icon" title="macOS">🍎</div>
+        <div class="platform-icon" title="Linux">🐧</div>
+      </div>
+      
+      <p style="color:var(--text3);font-size:14px">Version 2.0.0 • 85.4 MB • Electron</p>
+    </div>
+  </section>
+  
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <h2>Fonctionnalités de l'App Desktop</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <div class="feature-title">Performance Ultra-Rapide</div>
+          <div class="feature-desc">Application native avec Electron pour des performances maximales et une expérience fluide.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔔</div>
+          <div class="feature-title">Notifications Système</div>
+          <div class="feature-desc">Reçois des notifications natives même quand l'application est fermée.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎮</div>
+          <div class="feature-title">Intégration Gaming</div>
+          <div class="feature-desc">Overlay in-game, screen sharing, et intégration avec tes jeux préférés.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-title">Sécurité Avancée</div>
+          <div class="feature-desc">Chiffrement de bout en bout, authentification 2FA, et protection anti-phishing.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <div class="feature-title">Personnalisation Totale</div>
+          <div class="feature-desc">Thèmes, layouts, et extensions pour personnaliser ton expérience.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title">Multi-Plateforme</div>
+          <div class="feature-desc">Disponible sur Windows, macOS, et Linux avec synchronisation automatique.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Comparison Section -->
+  <section class="comparison">
+    <div class="container">
+      <h2>Fluxus vs Autres Plateformes</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Fonctionnalité</th>
+            <th class="fluxus-col">Fluxus</th>
+            <th>Discord</th>
+            <th>Twitter/X</th>
+            <th>Facebook</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Chat en temps réel</td>
+            <td class="fluxus-col"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Feed social</td>
+            <td class="fluxus-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Voice channels</td>
+            <td class="fluxus-col"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Live streaming</td>
+            <td class="fluxus-col"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Gaming intégré</td>
+            <td class="fluxus-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Marketplace</td>
+            <td class="fluxus-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>IA générative</td>
+            <td class="fluxus-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Open source</td>
+            <td class="fluxus-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
+  <!-- System Requirements -->
+  <section class="requirements">
+    <div class="container">
+      <h2>Configuration Requise</h2>
+      <div class="requirements-grid">
+        <div class="req-card">
+          <div class="req-title">Windows</div>
+          <ul class="req-list">
+            <li>Windows 10 ou supérieur</li>
+            <li>Intel Core i3 ou équivalent</li>
+            <li>4 Go RAM</li>
+            <li>500 Mo d'espace disque</li>
+            <li>Carte graphique compatible DirectX 11</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <div class="req-title">macOS</div>
+          <ul class="req-list">
+            <li>macOS 10.15 (Catalina) ou supérieur</li>
+            <li>Intel Core i3 ou Apple Silicon</li>
+            <li>4 Go RAM</li>
+            <li>500 Mo d'espace disque</li>
+          </ul>
+        </div>
+        <div class="req-card">
+          <div class="req-title">Linux</div>
+          <ul class="req-list">
+            <li>Ubuntu 18.04 ou équivalent</li>
+            <li>Intel Core i3 ou équivalent</li>
+            <li>4 Go RAM</li>
+            <li>500 Mo d'espace disque</li>
+            <li>GTK 3.0 ou supérieur</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="#">Documentation</a>
+        <a href="#">Support</a>
+        <a href="#">GitHub</a>
+        <a href="#">Twitter</a>
+      </div>
+      <p class="footer-copy">© 2024 Fluxus. Tous droits réservés.</p>
+    </div>
+  </footer>
+</body>
+</html>
