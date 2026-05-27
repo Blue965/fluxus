@@ -1,13 +1,32 @@
 {
-  "name": "fluxus-server",
-  "version": "1.0.0",
-  "description": "Fluxus — Serveur proxy pour l'IA Hugging Face",
-  "main": "server.js",
+  "name": "fluxus-desktop",
+  "version": "2.0.0",
+  "description": "Fluxus - La plateforme sociale ultime pour gamers et créateurs",
+  "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "vite",
+    "build": "vite build",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build",
+    "tauri:build:debug": "tauri build --debug",
+    "tauri:build:release": "tauri build --release"
+  },
+  "keywords": [
+    "fluxus",
+    "social",
+    "gaming",
+    "desktop",
+    "tauri",
+    "rust"
+  ],
+  "author": "Fluxus Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.0.0",
+    "vite": "^5.0.0"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "@tauri-apps/api": "^2.0.0"
   }
 }

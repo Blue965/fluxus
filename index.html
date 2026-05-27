@@ -743,9 +743,7 @@ img{display:block}
 <link href="improvements.css" rel="stylesheet">
 <link href="mega-improvements.css" rel="stylesheet">
 <link href="ultra-improvements.css" rel="stylesheet">
-<link href="god-mode-improvements.css" rel="stylesheet">
-<link href="platform-redesign.css" rel="stylesheet">
-<link href="ultimate-platform.css" rel="stylesheet"></head>
+<link href="god-mode-improvements.css" rel="stylesheet"></head>
 <body>
 
 <!-- ════ LOGIN ════ -->
@@ -864,6 +862,7 @@ img{display:block}
 
   <!-- MAIN -->
   <div class="main">
+    <!-- Original Layout -->
     <div class="topbar">
       <button class="tb-toggle" onclick="toggleSB()">
         <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -888,12 +887,10 @@ img{display:block}
     <!-- FEED -->
     <div class="page active" id="pageFeed">
       <div class="feed-wrap">
-        <div class="stories-row" id="storiesRow">
-          <div class="story-item" onclick="openModal('storyModal')">
-            <div class="story-ring story-add-ring"><div class="story-av story-add-ring"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div>
-            <div class="story-name">Story</div>
-          </div>
-        </div>
+        <!-- Stories Bar -->
+        <div class="stories-bar" id="storiesBar"></div>
+        
+        <!-- Composer -->
         <div class="composer">
           <div class="comp-top">
             <div class="comp-av" id="compAv">?</div>
@@ -911,7 +908,21 @@ img{display:block}
           </div>
           <input type="file" id="compFile" accept="image/*,video/*" style="display:none" onchange="handleCompFile(this)">
         </div>
+        
+        <!-- Feed Posts -->
+        <div class="feed-container" id="feedContainer"></div>
         <div id="feedPosts"></div>
+      </div>
+      
+      <!-- Right Sidebar -->
+      <div class="right-sidebar">
+        <div class="sidebar-section" id="trendingSection"></div>
+        <div class="sidebar-section" id="suggestionsSection"></div>
+        <div class="sidebar-section" id="communitiesSection"></div>
+        <div class="sidebar-section" id="gamingHubSection"></div>
+        <div class="sidebar-section" id="liveStreamsSection"></div>
+        <div class="sidebar-section" id="eventsSection"></div>
+        <div class="sidebar-section" id="newsSection"></div>
       </div>
     </div>
 
@@ -2297,7 +2308,5 @@ console.log('%c⚡ Fluxus v2.1 — AI + Todo + Fixes chargés !','color:#22c55e;
 <script src="improvements.js"></script>
 <script src="mega-improvements.js"></script>
 <script src="ultra-improvements.js"></script>
-<script src="god-mode-improvements.js"></script>
-<script src="platform-redesign.js"></script>
-<script src="ultimate-platform.js"></script></body>
+<script src="god-mode-improvements.js"></script></body>
 </html>
