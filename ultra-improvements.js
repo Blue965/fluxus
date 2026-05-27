@@ -73,6 +73,12 @@ window.toggleVoiceRecording = () => {
 window.sendVoiceMessage = async (audioUrl) => {
   if (!audioUrl || !curChatId || !ME) return;
   
+  // Vérifier que Firebase est disponible
+  if (typeof addDoc === 'undefined' || typeof collection === 'undefined' || typeof db === 'undefined') {
+    toast('Firebase pas encore disponible', 'error');
+    return;
+  }
+  
   await addDoc(collection(db, 'chats', curChatId, 'messages'), {
     type: 'voice',
     audioUrl,
@@ -261,6 +267,12 @@ function getWidgetContent(widgetId) {
 
 window.submitQuickPost = async (text) => {
   if (!text.trim() || !ME) return;
+  
+  // Vérifier que Firebase est disponible
+  if (typeof addDoc === 'undefined' || typeof collection === 'undefined' || typeof db === 'undefined') {
+    toast('Firebase pas encore disponible', 'error');
+    return;
+  }
   
   await addDoc(collection(db, 'posts'), {
     text,

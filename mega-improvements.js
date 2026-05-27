@@ -2,6 +2,20 @@
 // MEGA AMÉLIORATIONS FLUXUS - Version MASSIVE
 // ══════════════════════════════════════════════════════════════
 
+// ── HELPER: Vérifier si Firebase est disponible ───────────────
+function _checkFirebase() {
+  return typeof getDoc !== 'undefined' && 
+         typeof getDocs !== 'undefined' && 
+         typeof collection !== 'undefined' && 
+         typeof doc !== 'undefined' && 
+         typeof updateDoc !== 'undefined' && 
+         typeof query !== 'undefined' && 
+         typeof where !== 'undefined' && 
+         typeof orderBy !== 'undefined' && 
+         typeof limit !== 'undefined' && 
+         typeof db !== 'undefined';
+}
+
 // ── SYSTÈME DE RÉACTIONS (EMOJIS) SUR LES POSTS ───────────────────
 const REACTIONS = [
   { emoji: '❤️', name: 'Love', color: '#ef4444' },
@@ -59,6 +73,11 @@ window.openReactionMenu = (postId, btn) => {
 
 window.addReaction = async (postId, emoji) => {
   if (!ME) return;
+  
+  if (!_checkFirebase()) {
+    console.log('Firebase pas encore disponible');
+    return;
+  }
 
   const ref = doc(db, 'posts', postId);
   const snap = await getDoc(ref);
@@ -106,8 +125,19 @@ let _mentionUsers = [];
 let _mentionIndex = -1;
 
 window.initMentions = async () => {
-  const snap = await getDocs(collection(db, 'users'));
-  _mentionUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  // Attendre que Firebase soit disponible
+  if (typeof getDocs === 'undefined' || typeof collection === 'undefined' || typeof db === 'undefined') {
+    console.log('Firebase pas encore disponible, réessaie dans 1s...');
+    setTimeout(initMentions, 1000);
+    return;
+  }
+
+  try {
+    const snap = await getDocs(collection(db, 'users'));
+    _mentionUsers = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch (e) {
+    console.error('Erreur initMentions:', e);
+  }
 };
 
 window.handleMentionInput = (e, postId) => {
@@ -293,6 +323,11 @@ window.submitPoll = async () => {
 
 window.votePoll = async (postId, optionIndex) => {
   if (!ME) return;
+  
+  if (!_checkFirebase()) {
+    console.log('Firebase pas encore disponible');
+    return;
+  }
 
   const ref = doc(db, 'posts', postId);
   const snap = await getDoc(ref);
@@ -401,6 +436,11 @@ window.playNotificationSound = (type) => {
 // ── FEED ALGORITHMIQUE AVEC SUGGESTIONS PERSONNALISÉES ───────
 window.loadAlgorithmicFeed = async () => {
   if (!ME) return loadFeed();
+  
+  if (!_checkFirebase()) {
+    console.log('Firebase pas encore disponible');
+    return loadFeed();
+  }
 
   const mySnap = await getDoc(doc(db, 'users', ME.uid));
   const myData = mySnap.data();
@@ -533,6 +573,11 @@ let _typingTimeout = null;
 
 window.sendTypingIndicator = async (chatId) => {
   if (!ME) return;
+  
+  if (!_checkFirebase()) {
+    console.log('Firebase pas encore disponible');
+    return;
+  }
 
   const ref = doc(db, 'chats', chatId);
   await updateDoc(ref, {
@@ -578,6 +623,11 @@ function showTypingIndicator(uid) {
 // ── SYSTÈME DE SUGGESTIONS D'AMIS/USERS SIMILAIRES ───────────
 window.loadSuggestions = async () => {
   if (!ME) return;
+  
+  if (!_checkFirebase()) {
+    console.log('Firebase pas encore disponible');
+    return;
+  }
 
   const mySnap = await getDoc(doc(db, 'users', ME.uid));
   const myData = mySnap.data();
@@ -623,6 +673,11 @@ window.loadSuggestions = async () => {
 
 // ── SYSTÈME DE STATISTIQUES DÉTAILLÉES SUR LE PROFIL ───────────
 window.loadDetailedStats = async (uid) => {
+  if (!_checkFirebase()) {
+    console.log('Firebase pas encore disponible');
+    return;
+  }
+  
   const snap = await getDoc(doc(db, 'users', uid));
   const user = snap.data();
 

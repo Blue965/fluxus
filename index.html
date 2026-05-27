@@ -1156,6 +1156,26 @@ import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, where,
   arrayUnion, arrayRemove, limit, increment }
   from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
+// Rendre les fonctions Firebase globales pour les fichiers externes
+window.getFirestore = getFirestore;
+window.collection = collection;
+window.addDoc = addDoc;
+window.query = query;
+window.orderBy = orderBy;
+window.onSnapshot = onSnapshot;
+window.where = where;
+window.serverTimestamp = serverTimestamp;
+window.doc = doc;
+window.setDoc = setDoc;
+window.getDoc = getDoc;
+window.getDocs = getDocs;
+window.updateDoc = updateDoc;
+window.deleteDoc = deleteDoc;
+window.arrayUnion = arrayUnion;
+window.arrayRemove = arrayRemove;
+window.limit = limit;
+window.increment = increment;
+
 const FB = {
   apiKey:"AIzaSyBlSYrryaQMIOe7WRTIcwtctP-37zO_g60",
   authDomain:"fluxus-60710.firebaseapp.com",
